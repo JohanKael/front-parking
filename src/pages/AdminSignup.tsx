@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import Logo from '../../image/logo-remove.png';
 import { useState } from 'react';
-import axios from 'axios';
+import { signupAdmin } from '../services/authService';
 
 
 
@@ -17,8 +17,6 @@ function AdminSignup() {
 
     const [error, setError] = useState('');
 
-    const url_to_post = 'http://localhost:5002/Admin/createAdmin';
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(password !== confirmPassword) {
@@ -26,11 +24,7 @@ function AdminSignup() {
             return;
         }else{
             try {
-                await axios.post(url_to_post, {
-                    nomUser: name,
-                    emailUser: email,
-                    mdpUser: password
-                });
+                await signupAdmin(name, email, password);
                 window.location.href = '/go/admin';
             } catch (error) {
                 console.error('Erreur lors de l\'envoi des données:', error);

@@ -2,30 +2,28 @@ import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from 'react-router-dom';
 import Logo from '../../image/logo-remove.png';
-import axios from 'axios';
+import { loginAdmin } from '../services/authService';
 import { useState } from 'react';
-
-
-
+import { redirect } from '../services/redirection';
 
 function AdminLogin() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const url_to_post = 'http://localhost:5002/Auth/login';
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post(url_to_post, { 
-                emailUser: email,
-                mdpUser: password
-            });
-            console.log(response.data);
-            // console.log(email, password);
+            const result = await loginAdmin(email, password);
+            if (result.status === 'loginFailed') {
+                setError(result.message);
+            } else {
+                localStorage.setItem('token', result.token);
+                redirect(result.status);
+            }
         } catch (error) {
-            console.error('Erreur lors de la connexion:', error);
+            // console.error('Erreur de connexion:', error);
         }
     };
 
@@ -39,6 +37,7 @@ function AdminLogin() {
                     <div className="relative mt-14">
                         <input
                             type="email"
+                            value={email}
                             id="email"
                             name="email"
                             required
@@ -56,6 +55,7 @@ function AdminLogin() {
                     <div className="relative mt-8">
                         <input
                             type="password"
+                            value={password}
                             id="password"
                             name="password"
                             required
@@ -70,10 +70,15 @@ function AdminLogin() {
                             <HttpsIcon /> Password
                         </label>
                     </div>
+                    {error && (
+                        <div className="mt-8 text-center text-sm text-red-600 border border-red-600 rounded-lg bg-white p-2">
+                            {error}
+                        </div>
+                    )}
                     
                     <button 
                         type="submit"
-                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
+                        className="mt-14 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
                     >
                         Login
                     </button>
