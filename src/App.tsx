@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
 import AdminSignup from './pages/AdminSignup';
-import AdminHome from './pages/Home/AdminHome';
+import AdminHome from './pages/Home/AdminHome.tsx';
 
 function App() {
 
