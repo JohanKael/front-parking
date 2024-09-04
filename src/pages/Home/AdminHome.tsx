@@ -16,13 +16,14 @@ interface User{
 function AdminHome(){
 
     const [nonConfirmed, setNonConfirmed] = useState<User[] | null>([]);
-
     const nonConfirmedCount = nonConfirmed ? nonConfirmed.length : 0;
     
-    const url_to_fetch = 'http://localhost:5002/User/nonConfirmed';
+    const [allUsers, setAllUsers] = useState<User[] | null>([]);
+    const confirmedCount = allUsers ? allUsers.length : 0;
 
     const getNonConfirmedUsers = async () => {
         try {
+            const url_to_fetch = 'http://localhost:5002/User/nonConfirmed';
             const datas = await fetchDatas(url_to_fetch);
             console.log(datas);
             setNonConfirmed(datas);
@@ -31,19 +32,31 @@ function AdminHome(){
         }
     };
 
+    const getCountAllUsers = async () => {
+        try {
+            const url_to_fetch = 'http://localhost:5002/User/allUsers';
+            const datas = await fetchDatas(url_to_fetch);
+            console.log(datas);
+            setAllUsers(datas);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         getNonConfirmedUsers();
+        getCountAllUsers();
     }, [])
 
     return(
         <AdminLayout>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-10'>
-                <div className='bg-gradient-to-l from-green-500 to-lime-300 md:h-52 flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4'>
+                <div className='bg-gradient-to-l from-green-500 to-lime-300 md:h-52 hover:shadow-lg flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4'>
                     <div>
-                        Nombre d'utilisateurs confirmés :
+                        Nombre d'utilisateurs total :
                     </div>
                     <div className='font-bold text-[5rem]'>
-                        { nonConfirmedCount }
+                        { confirmedCount }
                     </div>
                 </div>
                 <div className='border border-neutral-300 md:h-52 hover:shadow-lg flex flex-col hover:shadow-neutral-300 transition items-center justify-center text-white rounded-3xl px-4 pt-4'>
@@ -76,7 +89,7 @@ function AdminHome(){
                     </thead>
                     <tbody>
                         {nonConfirmed?.map(user => (
-                            <tr key={user.idUser} className='border-b hover:bg-neutral-100 transition'>
+                            <tr key={user.idUser} className='hover:bg-neutral-100 transition'>
                                 <td className='p-3'>{user.nomUser}</td>
                                 <td className='p-3'>{user.emailUser}</td>
                                 <td className='p-3'>
@@ -87,10 +100,10 @@ function AdminHome(){
                                 <td className='p-3'>{ formatDate(user.dateDemande) }</td>
                                 <td>
                                     <div className='flex gap-4 items-center justify-center'>
-                                        <button className='bg-green-500 text-white font-semibold py-1 px-2 rounded-lg shadow-md hover:bg-green-600 transition duration-300 flex'>
+                                        <button className='bg-green-500 text-white font-semibold py-1 px-2 rounded-lg shadow-md shadow-green-300 hover:bg-green-600 transition duration-300 flex'>
                                             <DoneIcon/> Accepter
                                         </button>
-                                        <button className='bg-red-500 text-white font-semibold py-1 px-2 rounded-lg shadow-md hover:bg-red-600 transition duration-300 flex'>
+                                        <button className='bg-red-500 text-white font-semibold py-1 px-2 rounded-lg shadow-md shadow-red-300 hover:bg-red-600 transition duration-300 flex'>
                                             <DenyIcon /> refuser
                                         </button>
                                     </div>
