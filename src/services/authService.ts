@@ -2,9 +2,9 @@ import axios from 'axios';
 
 
 export const loginAdmin = async (email: string, password: string) => {
-    const BASE_URL = 'http://localhost:5002';
+    const BASE_URL = 'http://localhost:5002/Auth';
     try {
-        const response = await axios.post(`${BASE_URL}/Auth`, {
+        const response = await axios.post(`${BASE_URL}`, {
         emailUser: email,
         mdpUser: password
         });
