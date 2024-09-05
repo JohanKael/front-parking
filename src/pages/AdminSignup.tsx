@@ -10,6 +10,7 @@ import { signupAdmin } from '../services/authService';
 
 function AdminSignup() {
 
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,7 +32,7 @@ function AdminSignup() {
             }
         }
     };
-
+    
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center px-4 sm:px-6 md:px-8">

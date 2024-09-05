@@ -11,7 +11,7 @@ interface LayoutProps{
 function LayoutAdmin({ children } : LayoutProps) {
 
     return (
-        <div className="fixed md:px-4 inset-0 bg-black bg-opacity-70 backdrop-blur-lg">
+        <div className="fixed md:px-4 inset-0 bg-black bg-opacity-50 backdrop-blur-lg">
             <div className="gap-4 h-screen md:py-4 grid grid-cols-1 md:grid-cols-12">
                 <div className="rounded-3xl col-span-2 hidden md:flex md:items-center md:flex-col gap-4">
                     <div className='bg-white bg-opacity-10 w-full flex justify-center rounded-3xl'>
@@ -26,11 +26,12 @@ function LayoutAdmin({ children } : LayoutProps) {
                         </Link>
                     </div>
                 </div>
-                <div className="bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 flex flex-col gap-10">
+                <div className="overflow-y-auto bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 flex flex-col gap-10">
                     { children }
                 </div>
             </div>
         </div>
+
     )
 
 

@@ -10,9 +10,6 @@ function Login() {
 
 
 
-
-
-
     return (
         <div className="px-4 sm:px-6 md:px-8">
             <div className="bg-black bg-opacity-10 backdrop-blur-2xl px-16 py-10 rounded-3xl border border-zinc-500 hover:border-zinc-300 transition-all duration-30 text-white w-full max-w-2xl mx-auto">
