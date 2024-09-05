@@ -8,3 +8,14 @@ export const fetchDatas = async (urlToFetch: string) => {
         console.log(error);
     }
 }
+
+export const changeUserConfirmation = async (url: string, status: boolean | null) => {
+    try {
+        const response = await axios.put(url, {
+            isConfirmed: status
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -4,6 +4,7 @@ import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
 import AdminSignup from './pages/AdminSignup';
 import AdminHome from './pages/Home/AdminHome.tsx';
+import NotFound from './pages/NotFound.tsx';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/go/admin" element={<AdminLogin />} />
           <Route path="/go/admin/signup" element={<AdminSignup />} />
           <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

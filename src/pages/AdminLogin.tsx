@@ -23,9 +23,10 @@ function AdminLogin() {
                 redirect(result.status);
             }
         } catch (error) {
-            // console.error('Erreur de connexion:', error);
+            console.error('Erreur de connexion:', error);
         }
     };
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center px-4 sm:px-6 md:px-8">
