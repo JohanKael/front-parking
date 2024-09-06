@@ -22,7 +22,7 @@ function LayoutAdmin({ children } : LayoutProps) {
 
 
     return (
-        <div className="fixed md:px-4 inset-0 bg-black bg-opacity-50 backdrop-blur-lg">
+        <div className="fixed md:px-4 inset-0 bg-black bg-opacity-50 backdrop-blur-2xl">
             <div className="gap-4 h-screen md:py-4 grid grid-cols-1 md:grid-cols-12">
                 <div className="rounded-3xl col-span-2 hidden md:flex md:items-center md:flex-col gap-4">
                     <div className='bg-white bg-opacity-10 w-full flex justify-center rounded-3xl'>
@@ -31,7 +31,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                     <div className='bg-white bg-opacity-10 w-full flex justify-center rounded-3xl p-4 flex-col gap-2'>
                         <div className='flex text-white items-center gap-4 justify-start'>
                             <img src={ Perso } alt="" className='w-14'/>
-                            Nom User
+                            Admin
                         </div>
                         <button onClick={ deconnect }>
                             <div className='text-white font-thin bg-white bg-opacity-10 py-2 pl-4 rounded-xl hover:bg-opacity-100 hover:text-black hover:font-normal transition mb-1'>
