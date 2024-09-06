@@ -97,7 +97,7 @@ function AdminHome(){
 
                 <div className='col-span-2'>
                     <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-10'>
-                        <div className='bg-gradient-to-l from-green-500 to-lime-300 md:h-52 hover:shadow-lg flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4'>
+                        <div className='bg-gradient-to-l from-green-500 to-lime-300 md:h-52 hover:shadow-xl flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4 transition'>
                             <div>
                                 Nombre d'utilisateurs total :
                             </div>
