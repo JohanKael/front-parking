@@ -20,6 +20,12 @@ function AdminLogin() {
                 setError(result.message);
             } else {
                 localStorage.setItem('token', result.token);
+                const user = {
+                    userId : result.idUser,
+                    userName : result.nom,
+                    userEmail : result.email
+                }
+                sessionStorage.setItem('userInfo', JSON.stringify(user));
                 redirect(result.status);
             }
         } catch (error) {
