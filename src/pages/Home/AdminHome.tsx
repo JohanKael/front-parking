@@ -80,7 +80,7 @@ function AdminHome(){
             getNonConfirmedUsers();
             getCountAllUsers();
             getDeniedUsers();
-        }, 200)
+        }, 100)
 
 
 
