@@ -6,14 +6,7 @@ import DenyIcon from '@mui/icons-material/Close';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { formatDate } from '../../Function/Function.ts'
 import { useLocation, useNavigate } from 'react-router-dom';
-
-interface User{
-    userId : number
-    nomUser : string
-    emailUser : string
-    nomRole : string
-    dateDemande : string
-}
+import { User } from './../../services/authService.ts'
 
 function AdminHome(){
     
@@ -62,9 +55,10 @@ function AdminHome(){
 
 
     const changeUserDemand = async (userid: number, state: boolean | null) => {
+        const user = JSON.parse(sessionStorage.getItem('userInfo')!);
         try {
             const url = `http://localhost:5002/User/changeConfirmation/${userid}`
-            const res = await changeUserConfirmation(url, state)
+            const res = await changeUserConfirmation(user.userId , url, state)
             if(res != null){
                 navigate('/admin/home')
             }

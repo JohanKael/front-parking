@@ -9,19 +9,17 @@ interface LayoutProps{
     children : React.ReactNode;
 }
 
-
 function LayoutAdmin({ children } : LayoutProps) {
 
     const navigate = useNavigate();
 
     const deconnect = () => {
         localStorage.removeItem('token');
-        sessionStorage.removeItem('userInfo')
+        sessionStorage.removeItem('userInfo');
         navigate('/go/admin');
     };
 
-    const user = JSON.parse(sessionStorage.getItem('userInfo')!);
-
+    var user = JSON.parse(sessionStorage.getItem('userInfo')!);
 
     return (
         <div className="fixed md:px-4 inset-0 bg-black bg-opacity-30">
@@ -36,8 +34,8 @@ function LayoutAdmin({ children } : LayoutProps) {
                                 <img src={ Perso } alt="" className='w-14'/>
                             </div>
                             <div>
-                                <p className='font-semibold text-lg'>{ user.userName }</p>
-                                <p className='break-all font-light text-neutral-300'>{ user.userEmail }</p>
+                                <p className='font-semibold text-lg'>{ user?.userName }</p>
+                                <p className='break-all font-light text-neutral-300'>{ user?.userEmail }</p>
                             </div>
                         </div>
                         <button onClick={ deconnect }>

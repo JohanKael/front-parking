@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+export interface User{
+    userId : number
+    nomUser : string
+    emailUser : string
+    nomRole : string
+    dateDemande : string
+}
 
 export const loginAdmin = async (email: string, password: string) => {
     const BASE_URL = 'http://localhost:5002/Auth';
