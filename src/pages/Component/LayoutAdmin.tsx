@@ -1,9 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Logo from '../../../image/logo-remove.png'
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Perso from './../../../image/perso.png'
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface LayoutProps{
     children : React.ReactNode;
@@ -12,6 +12,7 @@ interface LayoutProps{
 function LayoutAdmin({ children } : LayoutProps) {
 
     const navigate = useNavigate();
+    const {pathname} = useLocation();
 
     const deconnect = () => {
         localStorage.removeItem('token');
@@ -20,6 +21,14 @@ function LayoutAdmin({ children } : LayoutProps) {
     };
 
     var user = JSON.parse(sessionStorage.getItem('userInfo')!);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(pathname);
+        if (!token && pathname !== '/go/admin' && pathname !== '/' && pathname !== '/signup' && pathname !== '/go/admin/signup') {
+            navigate('/not-found');
+        }
+    },[pathname])
 
     return (
         <div className="fixed md:px-4 inset-0 bg-black bg-opacity-30">
