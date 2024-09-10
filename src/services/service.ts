@@ -24,3 +24,12 @@ export const changeUserConfirmation = async (id : number, url: string, status: b
         console.log(error);
     }
 }
+
+export const postDatas = async (urlToPost : string ,datas : any) => {
+    try {
+        const response = await axios.post(urlToPost, datas);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
