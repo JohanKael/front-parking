@@ -2,8 +2,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Logo from '../../../image/logo-remove.png'
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PlayForWorkIcon from '@mui/icons-material/PlayForWork';
+import MenuIcon from '@mui/icons-material/Menu';
 import Perso from './../../../image/perso.png'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface LayoutProps{
     children : React.ReactNode;
@@ -13,6 +15,12 @@ function LayoutAdmin({ children } : LayoutProps) {
 
     const navigate = useNavigate();
     const {pathname} = useLocation();
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     const deconnect = () => {
         localStorage.removeItem('token');
@@ -33,11 +41,11 @@ function LayoutAdmin({ children } : LayoutProps) {
     return (
         <div className="fixed md:px-4 inset-0 bg-black bg-opacity-30">
             <div className="gap-4 h-screen md:py-4 grid grid-cols-1 md:grid-cols-12">
-                <div className="col-span-2 hidden md:flex md:items-center md:flex-col gap-4">
-                    <div className='bg-white bg-opacity-5 backdrop-blur-xl w-full flex justify-center rounded-3xl'>
-                        <img src={Logo} alt="" className='md:w-36'/>
+                <div className={`col-span-2 flex flex-col items-center gap-4 px-4 transition-transform duration-300 fixed top-0 left-0 h-full z-30 ${isMenuOpen ? 'bg-teal-950 bg-opacity-70 backdrop-blur-3xl translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 md:z-auto`}>
+                    <div className='md:bg-white md:bg-opacity-5 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl'>
+                        <img src={Logo} alt="" className='md:w-36 w-40'/>
                     </div>
-                    <div className='bg-white bg-opacity-5 backdrop-blur-xl w-full flex justify-center rounded-3xl p-4 flex-col gap-2'>
+                    <div className='bg-white bg-opacity-10 md:bg-opacity-5 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl p-4 flex-col gap-2'>
                         <div className='flex flex-col xl:flex-row text-white items-center gap-4 justify-start'>
                             <div>
                                 <img src={ Perso } alt="" className='w-14'/>
@@ -48,21 +56,32 @@ function LayoutAdmin({ children } : LayoutProps) {
                             </div>
                         </div>
                         <button onClick={ deconnect }>
-                            <div className='text-white font-thin break-words bg-white bg-opacity-10 py-2 px-4 rounded-xl hover:bg-opacity-100 hover:text-black hover:font-normal transition mb-1'>
+                            <div className='text-white font-thin break-words bg-white bg-opacity-10 py-2 px-4 rounded-xl hover:bg-opacity-100 hover:text-black transition-colors duration-300 mb-1'>
                                 <LogoutIcon /> Se déconnecter
                             </div>
                         </button>
                     </div>
-                    <div className='bg-white bg-opacity-5 backdrop-blur-xl w-full flex flex-col px-2 rounded-3xl py-2 gap-2'>
-                        <h2 className='text-white text-2xl font-normal ml-3'>Liens</h2>
+                    <div className='bg-white bg-opacity-10 md:bg-opacity-5 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
+                        <h2 className='text-white text-2xl font-semibold ml-2'>Liens</h2>
                         <Link to='/admin/home'>
                             <div className='text-white font-thin bg-white bg-opacity-0 py-2 px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <PeopleIcon /> Gestion des utilisateurs
                             </div>
                         </Link>
+                        <Link to='/admin/import'>
+                            <div className='text-white font-thin bg-white bg-opacity-0 py-2 px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <PlayForWorkIcon /> Import
+                            </div>
+                        </Link>
                     </div>
                 </div>
-                <div className="overflow-y-auto bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 flex flex-col gap-10">
+                    <button 
+                        className="md:hidden absolute top-2 right-4 text-black p-2 rounded-lg backdrop-blur-xl bg-white bg-opacity-30"
+                        onClick={toggleMenu}
+                    >
+                        <MenuIcon />
+                    </button>
+                <div className="overflow-y-auto pt-20 md:p-8 bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 gap-10">
                     { children }
                 </div>
             </div>
