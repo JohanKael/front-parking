@@ -5,14 +5,11 @@ import DoneIcon from '@mui/icons-material/Done';
 import DenyIcon from '@mui/icons-material/Close';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { formatDate } from '../../Function/Function.ts'
-import { useLocation, useNavigate } from 'react-router-dom';
 import { User } from './../../services/authService.ts'
+import { useNavigate } from 'react-router-dom';
 
 function AdminHome(){
-    
-
     const navigate = useNavigate();
-    const {pathname} = useLocation();
 
     const [nonConfirmed, setNonConfirmed] = useState<User[] | null>([]);
     const nonConfirmedCount = nonConfirmed ? nonConfirmed.length : 0;
@@ -70,11 +67,6 @@ function AdminHome(){
     const [reload, setReload] = useState<boolean>(false);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        console.log(pathname);
-        if (!token && pathname !== '/go/admin' && pathname !== '/' && pathname !== '/signup' && pathname !== '/go/admin/signup') {
-            navigate('/not-found');
-        }
 
         setTimeout(() => {
             getNonConfirmedUsers();
@@ -84,7 +76,7 @@ function AdminHome(){
 
 
 
-    }, [reload, navigate, pathname]);
+    }, [reload, navigate]);
 
     return(
         <AdminLayout>
