@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import AdminLayout from './../Component/LayoutAdmin.tsx'
+import AdminLayout from '../Component/LayoutAdmin.tsx'
 import { changeUserConfirmation, fetchDatas } from '../../services/service.ts';
 import DoneIcon from '@mui/icons-material/Done';
 import DenyIcon from '@mui/icons-material/Close';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { formatDate } from '../../Function/Function.ts'
-import { User } from './../../services/authService.ts'
+import { User } from '../../services/authService.ts'
 import { useNavigate } from 'react-router-dom';
 
 function AdminHome(){
