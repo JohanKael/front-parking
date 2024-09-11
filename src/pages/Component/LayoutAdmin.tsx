@@ -50,27 +50,30 @@ function LayoutAdmin({ children } : LayoutProps) {
                             <div>
                                 <img src={ Perso } alt="" className='w-14'/>
                             </div>
-                            <div>
-                                <p className='font-semibold text-lg'>{ user?.userName }</p>
-                                <p className='break-all font-light text-neutral-300'>{ user?.userEmail }</p>
+                            <div className='flex flex-col'>
+                                <p className='md:hidden xl:block font-semibold text-lg'>{ user?.userName }</p>
+                                <p className='md:hidden xl:block break-all font-light text-neutral-300'>{ user?.userEmail }</p>
                             </div>
                         </div>
                         <button onClick={ deconnect }>
-                            <div className='text-white font-thin break-words bg-white bg-opacity-10 py-2 px-4 rounded-xl hover:bg-opacity-100 hover:text-black transition-colors duration-300 mb-1'>
-                                <LogoutIcon /> Se déconnecter
+                            <div className='flex justify-center rounded-full text-white font-thin break-words bg-white bg-opacity-10 py-2 xl:rounded-xl hover:bg-opacity-100 hover:text-black transition-colors duration-300 mb-1'>
+                                <LogoutIcon /> 
+                                <p className='hidden xl:block'>Se déconnecter</p>
                             </div>
                         </button>
                     </div>
                     <div className='bg-white bg-opacity-10 md:bg-opacity-5 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
                         <h2 className='text-white text-2xl font-semibold ml-2'>Liens</h2>
                         <Link to='/admin/home'>
-                            <div className='text-white font-thin bg-white bg-opacity-0 py-2 px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
-                                <PeopleIcon /> Gestion des utilisateurs
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <PeopleIcon /> 
+                                <p className='md:hidden xl:block'>&nbsp;Gestion des utilisateurs</p>
                             </div>
                         </Link>
                         <Link to='/admin/import'>
-                            <div className='text-white font-thin bg-white bg-opacity-0 py-2 px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
-                                <PlayForWorkIcon /> Import
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <PlayForWorkIcon /> 
+                                <p className='md:hidden xl:block'>&nbsp;Import</p>
                             </div>
                         </Link>
                     </div>
