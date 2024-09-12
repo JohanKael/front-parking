@@ -11,3 +11,7 @@ export const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', options);
 };
+
+export const dateTimeFormat = (dateString : string) => {
+    return dateString.replace('T', ' ');
+}

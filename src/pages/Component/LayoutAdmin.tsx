@@ -91,7 +91,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                     >
                         <MenuIcon />
                     </button>
-                <div className="overflow-y-auto pt-20 md:p-8 bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 gap-10">
+                <div className="pt-20 xl:p-8 bg-white md:rounded-3xl grid-cols-1 md:col-span-10 p-7 gap-10 overflow-y-auto">
                     { children }
                 </div>
             </div>
