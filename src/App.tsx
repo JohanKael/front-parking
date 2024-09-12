@@ -6,6 +6,7 @@ import AdminSignup from './pages/AdminSignup';
 import AdminUser from './pages/Admin/AdminUser.tsx';
 import NotFound from './pages/NotFound.tsx';
 import AdminImport from './pages/Admin/AdminImport.tsx';
+import FilterGate from './pages/Admin/FilterGate.tsx';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/admin/home" element={<AdminUser />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/admin/import" element={<AdminImport />} />
+          <Route path="/admin/gate" element={<FilterGate />} />
         </Routes>
       </BrowserRouter>
     </>
