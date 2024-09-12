@@ -1,11 +1,12 @@
 import LayoutAdmin from "../Component/LayoutAdmin"
 import UploadIcon from '@mui/icons-material/CloudUpload';
-import { CsvGateOperation } from './../Component/CsvCard'
+import { CsvGateOperation } from '../Component/CsvCard'
 import { useState } from "react";
 import axios from "axios";
 
 function AdminImport(){
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     const [file1, setFile1] = useState<File | null>(null);
     const [file1Name, setFile1Name] = useState<String>('');
@@ -23,10 +24,10 @@ function AdminImport(){
                     "Custom-Header": "value",
                 }
             }).then(res => { 
-                setMessage("Upload succesful");
+                setMessage(res.data);
                 console.log(res.data);
             }).catch(err =>{ 
-                setMessage("Upload failed")
+                setError("Upload failed")
                 console.log(err);
             });
         } 
@@ -63,7 +64,8 @@ function AdminImport(){
                     >
                         Submit
                     </button>
-                    <p>{ message }</p>
+                    <p className="text-green-600">{ message }</p>
+                    <p className="text-red-600">{ error }</p>
                 </div>  
             </div>
         </LayoutAdmin>

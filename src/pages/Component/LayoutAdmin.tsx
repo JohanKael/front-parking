@@ -4,6 +4,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PlayForWorkIcon from '@mui/icons-material/PlayForWork';
 import MenuIcon from '@mui/icons-material/Menu';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import Perso from './../../../image/perso.png'
 import React, { useEffect, useState } from 'react';
 
@@ -74,6 +75,12 @@ function LayoutAdmin({ children } : LayoutProps) {
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <PlayForWorkIcon /> 
                                 <p className='md:hidden xl:block'>&nbsp;Import</p>
+                            </div>
+                        </Link>
+                        <Link to='/admin/gate'>
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <AnalyticsIcon /> 
+                                <p className='md:hidden xl:block'>&nbsp;Statistiques barrières</p>
                             </div>
                         </Link>
                     </div>
