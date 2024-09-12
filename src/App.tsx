@@ -3,9 +3,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
 import AdminSignup from './pages/AdminSignup';
-import AdminUser from './pages/Home/AdminUser.tsx';
+import AdminUser from './pages/Admin/AdminUser.tsx';
 import NotFound from './pages/NotFound.tsx';
-import AdminImport from './pages/Home/AdminImport.tsx';
+import AdminImport from './pages/Admin/AdminImport.tsx';
 
 function App() {
 
