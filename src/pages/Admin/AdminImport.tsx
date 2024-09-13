@@ -1,12 +1,34 @@
 import LayoutAdmin from "../Component/LayoutAdmin"
 import UploadIcon from '@mui/icons-material/CloudUpload';
 import { CsvGateOperation } from '../Component/CsvCard'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function AdminImport(){
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    //pour le timeout des messages
+    const [showMessage, setShowMessage] = useState(!!message);
+    const [showError, setShowError] = useState(!!error);
+
+    useEffect(() => {
+        let timer: number | undefined;
+    
+        if (error) {
+          setShowError(true);
+          setShowMessage(false); // Hide message if there's an error
+          timer = setTimeout(() => {
+            setShowError(false);
+          }, 3000);
+        } else if (message) {
+          setShowMessage(true);
+          timer = setTimeout(() => {
+            setShowMessage(false);
+          }, 3000);
+        }
+    
+        return () => clearTimeout(timer);
+    }, [message, error]);
 
     const [file1, setFile1] = useState<File | null>(null);
     const [file1Name, setFile1Name] = useState<String>('');
@@ -64,7 +86,10 @@ function AdminImport(){
                     >
                         Submit
                     </button>
-                    { error ? <p className="text-red-600">{ error }</p> : <p className="text-green-600">{ message }</p> }
+                    <div>
+                        {showError && <p className="text-red-600">{error}</p>}
+                        {showMessage && !showError && <p className="text-green-600">{message}</p>}
+                    </div>
                 </div>  
             </div>
         </LayoutAdmin>
