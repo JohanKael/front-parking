@@ -42,11 +42,11 @@ function LayoutAdmin({ children } : LayoutProps) {
     return (
         <div className="fixed md:px-4 inset-0 bg-black bg-opacity-30">
             <div className="gap-4 h-screen md:py-4 grid grid-cols-1 md:grid-cols-12">
-                <div className={`col-span-2 flex flex-col items-center gap-4 px-4 transition-transform duration-300 fixed top-0 left-0 h-full z-30 ${isMenuOpen ? 'bg-teal-950 bg-opacity-70 backdrop-blur-3xl translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 md:z-auto`}>
-                    <div className='md:bg-white md:bg-opacity-5 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl'>
+                <div className={`col-span-2 flex flex-col items-center gap-4 px-4 transition-transform duration-300 fixed top-0 left-0 h-full z-30 ${isMenuOpen ? 'bg-teal-800 bg-opacity-70 backdrop-blur-3xl translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 md:z-auto`}>
+                    <div className='md:bg-white md:bg-opacity-10 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl'>
                         <img src={Logo} alt="" className='md:w-36 w-40'/>
                     </div>
-                    <div className='bg-white bg-opacity-10 md:bg-opacity-5 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl p-4 flex-col gap-2'>
+                    <div className='bg-white bg-opacity-10 md:bg-opacity-10 md:backdrop-blur-3xl w-full flex justify-center rounded-3xl p-4 flex-col gap-2'>
                         <div className='flex flex-col xl:flex-row text-white items-center gap-4 justify-start'>
                             <div>
                                 <img src={ Perso } alt="" className='w-14'/>
@@ -63,7 +63,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                             </div>
                         </button>
                     </div>
-                    <div className='bg-white bg-opacity-10 md:bg-opacity-5 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
+                    <div className='bg-white bg-opacity-10 md:bg-opacity-10 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
                         <h2 className='text-white text-2xl font-semibold ml-2'>Liens</h2>
                         <Link to='/admin/home'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
