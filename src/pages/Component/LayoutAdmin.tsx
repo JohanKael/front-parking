@@ -59,7 +59,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                         <button onClick={ deconnect }>
                             <div className='flex justify-center rounded-full text-white font-thin break-words bg-white bg-opacity-10 py-2 xl:rounded-xl hover:bg-opacity-100 hover:text-black transition-colors duration-300 mb-1'>
                                 <LogoutIcon /> 
-                                <p className='hidden xl:block'>Se déconnecter</p>
+                                <p className='hidden xl:block'>&nbsp; Se déconnecter</p>
                             </div>
                         </button>
                     </div>

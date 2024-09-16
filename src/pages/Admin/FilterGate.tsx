@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LayoutAdmin from "../Component/LayoutAdmin"
 import { dateTimeFormat } from "../../Function/Function";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
@@ -37,7 +37,7 @@ function FilterGate(){
     }
 
     const datas = {
-        labels: ['Entrée', 'Entrée RFID', 'Sortie', 'Sortie RFID'],
+        labels: ['Entrée', 'Entrée abonnement', 'Sortie', 'Sortie abonnement'],
         datasets: [{
             label: 'Operations',
             data: [
@@ -91,28 +91,28 @@ function FilterGate(){
                     <div className="col-span-2 grid grid-cols-2 gap-8">
                         <div className="hover:text-yellow-400 hover:border-yellow-400 bg-yellow-400 rounded-2xl p-6 hover:shadow-xl hover:shadow-yellow-200 transition">
                             <p className="text-white">Nombre d'entrée :</p>
-                            <div className="flex items-center gap-3 xl:gap-6">
+                            <div className="flex flex-col md:flex-row items-center gap-3 xl:gap-6">
                                 <p className="font-bold text-[3rem] xl:text-[5rem] text-white">{ totalGateOperation?.Entree ? totalGateOperation?.Entree : 0 }</p>
                                 <SouthEastIcon className="text-white" sx={{ fontSize : 60 }}/>
                             </div>
                         </div>
                         <div className="hover:border-lime-500 bg-lime-500 rounded-2xl p-6 hover:shadow-xl hover:shadow-lime-300 transition">
-                            <p className="text-white">Nombre d'entrée RFID :</p>
-                            <div className="flex items-center gap-3 xl:gap-6">
+                            <p className="text-white">Nombre d'entrée abonnement :</p>
+                            <div className="flex flex-col md:flex-row items-center gap-3 xl:gap-6">
                                 <p className="font-bold text-[3rem] xl:text-[5rem] text-white">{ totalGateOperation?.Entree_rfid ? totalGateOperation?.Entree_rfid : 0 }</p>
                                 <SouthEastIcon className="text-white" sx={{ fontSize : 60 }}/>
                             </div>
                         </div>
                         <div className="hover:border-red-500 bg-red-500 rounded-2xl p-6 hover:shadow-xl hover:shadow-red-300 transition">
                             <p className="text-white">Nombre de sortie :</p>
-                            <div className="flex items-center gap-3 xl:gap-6">
+                            <div className="flex flex-col md:flex-row items-center gap-3 xl:gap-6">
                                 <p className="font-bold text-[3rem] xl:text-[5rem] text-white">{ totalGateOperation?.Sortie ? totalGateOperation?.Sortie : 0 }</p>
                                 <NorthEastIcon className="text-white" sx={{ fontSize : 60 }}/>
                             </div>
                         </div>
                         <div className="hover:border-sky-600  bg-sky-600 rounded-2xl p-6 hover:shadow-xl hover:shadow-sky-300 transition">
-                            <p className="text-white">Nombre de sortie RFID :</p>
-                            <div className="flex items-center gap-3 xl:gap-6">
+                            <p className="text-white">Nombre de sortie abonnement :</p>
+                            <div className="flex flex-col md:flex-row items-center gap-3 xl:gap-6">
                                 <p className="font-bold text-[3rem] xl:text-[5rem] text-white">{ totalGateOperation?.Sortie_rfid ? totalGateOperation?.Sortie_rfid : 0 }</p>
                                 <NorthEastIcon className="text-white" sx={{ fontSize : 60 }}/>
                             </div>
