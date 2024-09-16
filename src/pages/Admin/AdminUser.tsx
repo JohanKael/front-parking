@@ -22,7 +22,7 @@ function AdminHome(){
 
     const getNonConfirmedUsers = async () => {
         try {
-            const url_to_fetch = 'http://localhost:5002/User/nonConfirmed';
+            const url_to_fetch = 'http://10.0.105.140:5002/User/nonConfirmed';
             const datas = await fetchDatas(url_to_fetch);
             setNonConfirmed(datas);
         } catch (error) {
@@ -32,7 +32,7 @@ function AdminHome(){
 
     const getCountAllUsers = async () => {
         try {
-            const url_to_fetch = 'http://localhost:5002/User/allUsers';
+            const url_to_fetch = 'http://10.0.105.140:5002/User/allUsers';
             const datas = await fetchDatas(url_to_fetch);
             setAllUsers(datas);
         } catch (error) {
@@ -42,7 +42,7 @@ function AdminHome(){
 
     const getDeniedUsers = async () => {
         try {
-            const url_to_fetch = 'http://localhost:5002/User/deniedUser';
+            const url_to_fetch = 'http://10.0.105.140:5002/User/deniedUser';
             const datas = await fetchDatas(url_to_fetch);
             setDeniedUser(datas);
         } catch (error) {
@@ -54,7 +54,7 @@ function AdminHome(){
     const changeUserDemand = async (userid: number, state: boolean | null) => {
         const user = JSON.parse(sessionStorage.getItem('userInfo')!);
         try {
-            const url = `http://localhost:5002/User/changeConfirmation/${userid}`
+            const url = `http://10.0.105.140:5002/User/changeConfirmation/${userid}`
             const res = await changeUserConfirmation(user.userId , url, state)
             if(res != null){
                 navigate('/admin/home')

@@ -26,7 +26,7 @@ function FilterGate(){
         const dateOne = dateTimeFormat(dateFrom);
         const dateTwo = dateTimeFormat(dateTo);
 
-        const url_to_post = "http://localhost:5002/Gate/filter";
+        const url_to_post = "http://10.0.105.140:5002/Gate/filter";
         const response = await axios.get(url_to_post, {
             params:{
                 dateFrom : dateOne,

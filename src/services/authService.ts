@@ -9,7 +9,7 @@ export interface User{
 }
 
 export const loginAdmin = async (email: string, password: string) => {
-    const BASE_URL = 'http://localhost:5002/Auth';
+    const BASE_URL = 'http://10.0.105.140:5002/Auth';
     try {
         const response = await axios.post(`${BASE_URL}`, {
         emailUser: email,
@@ -22,7 +22,7 @@ export const loginAdmin = async (email: string, password: string) => {
 };
 
 export const signupAdmin = async (name: string, email: string, password: string) => {
-    const url_to_post = 'http://localhost:5002/Admin/createAdmin';
+    const url_to_post = 'http://10.0.105.140:5002/Admin/createAdmin';
     try {
         const response = await axios.post(`${url_to_post}`, {
             nomUser: name,
@@ -37,7 +37,7 @@ export const signupAdmin = async (name: string, email: string, password: string)
 }
 
 export const signup = async (name: string, email: string, password: string) => {
-    const url_to_post = 'http://localhost:5002/User/createUser';
+    const url_to_post = 'http://10.0.105.140:5002/User/createUser';
     try {
         const response = await axios.post(`${url_to_post}`, {
             nomUser: name,
