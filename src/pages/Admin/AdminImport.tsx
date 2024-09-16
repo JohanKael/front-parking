@@ -41,7 +41,7 @@ function AdminImport(){
             const fd = new FormData();
             fd.append('file', file1);
 
-            await axios.post('http://localhost:5002/Gate/operation', fd, {
+            await axios.post('http://10.0.105.140:5002/Gate/operation', fd, {
                 headers : {
                     "Custom-Header": "value",
                 }
