@@ -55,8 +55,7 @@ function AdminImport(){
                     "Custom-Header": "value",
                 }
             }).then(res => { 
-                // setMessage2(res.data);
-                console.log(res.data)
+                setMessage2(res.data);
             }).catch(err =>{ 
                 setError2("Upload failed")
                 console.log(err);

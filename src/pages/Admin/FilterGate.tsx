@@ -134,11 +134,11 @@ function FilterGate(){
                                 <NorthEastIcon className="text-amber-500" sx={{ fontSize : 40 }}/>
                             </div>
                         </div>
-                        <div className="shadow-xl col-span-2 p-8">
-                            <p className="font-semibold text-lg">Le nombre d'anomalies rencontrées entre ces dates :</p>
+                        <div className="shadow-xl p-8 md:col-span-2">
+                            <p className="font-semibold text-lg pb-2">Le nombre d'anomalies rencontrées entre ces dates :</p>
                             {
                                 (totalGateOperation?.Already_Used) ? 
-                                <div className="w-full p-8">
+                                <div className="w-full">
                                     <span className="flex flex-row gap-2">
                                         <p className="text-gray-700">Déjà utilisé :</p>
                                         <p className="text-orange-600">{ totalGateOperation?.Already_Used }</p>
