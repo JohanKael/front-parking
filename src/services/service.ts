@@ -10,6 +10,7 @@ export const fetchDatas = async (urlToFetch: string) => {
     }
 }
 
+//changer l'accès à l'application
 export const changeUserConfirmation = async (id : number, url: string, status: boolean | null) => {
     try {
         const response = await axios.put(url, 
