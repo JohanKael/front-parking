@@ -111,7 +111,7 @@ function FilterGate(){
                         <SyncLoader 
                             color="#393D42"
                         />
-                    </div> 
+                    </div>
                 :
                     <div className="py-4 grid grid-cols-1 xl:grid-cols-3 gap-0 xl:gap-10">
                         <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
