@@ -5,6 +5,7 @@ import Logo from '../../image/logo-remove.png';
 import { loginAdmin } from '../services/authService';
 import { useState } from 'react';
 import { redirect } from '../services/redirection';
+import { ClipLoader } from 'react-spinners';
 
 function AdminLogin() {
 
@@ -12,8 +13,11 @@ function AdminLogin() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const result = await loginAdmin(email, password);
             if (result.status === 'loginFailed') {
@@ -30,6 +34,9 @@ function AdminLogin() {
             }
         } catch (error) {
             console.error('Erreur de connexion:', error);
+        }
+        finally{
+            setLoading(false);
         }
     };
 
@@ -85,9 +92,15 @@ function AdminLogin() {
                     
                     <button 
                         type="submit"
-                        className="mt-14 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
+                        className="mt-14 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300 flex justify-center items-center gap-2"
                     >
-                        Login
+                        Login 
+                        { loading && (
+                            <ClipLoader 
+                                size={20}
+                                color='#FFF'
+                            />
+                        ) }
                     </button>
                 </form>
                 <p className="mt-8 text-center text-sm">
