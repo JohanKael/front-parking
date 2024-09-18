@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../image/logo-remove.png';
 import { useState } from 'react';
 import { signupAdmin } from '../services/authService';
-
+import { ClipLoader } from 'react-spinners';
 
 
 function AdminSignup() {
@@ -16,6 +16,8 @@ function AdminSignup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,11 +26,15 @@ function AdminSignup() {
             setError('Les mots de passe ne correspondent pas');
             return;
         }else{
+            setLoading(true);
             try {
                 await signupAdmin(name, email, password);
                 window.location.href = '/go/admin';
             } catch (error) {
                 console.error('Erreur lors de l\'envoi des données:', error);
+            }
+            finally{
+                setLoading(false);
             }
         }
     };
@@ -112,9 +118,15 @@ function AdminSignup() {
                     
                     <button 
                         type="submit"
-                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
+                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300 flex justify-center items-center gap-2"
                     >
                         Sign in
+                        { loading && (
+                            <ClipLoader 
+                                size={20}
+                                color='#FFF'
+                            />
+                        ) }
                     </button>
 
                     {error && (
