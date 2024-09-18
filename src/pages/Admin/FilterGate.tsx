@@ -107,7 +107,7 @@ function FilterGate(){
                 </div>
                 { 
                 (loading) ? 
-                    <div className="w-full flex justify-center items-center h-[44rem]">
+                    <div className="w-full flex justify-center mt-44 md:mt-0 md:items-center h-[44rem]">
                         <SyncLoader 
                             color="#393D42"
                         />
