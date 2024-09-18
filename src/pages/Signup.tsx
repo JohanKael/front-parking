@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../image/logo-remove.png';
 import { useState } from 'react';
 import { signup } from '../services/authService';
-
+import { ClipLoader } from 'react-spinners';
 
 function Signup() {
 
@@ -17,6 +17,8 @@ function Signup() {
 
     const [error, setError] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(password !== confirmPassword) {
@@ -24,10 +26,14 @@ function Signup() {
             return;
         }else{
             try {
+                setLoading(true);
                 await signup(name, email, password);
                 window.location.href = '/';
             } catch (error) {
                 console.error('Erreur lors de l\'envoi des données:', error);
+            }
+            finally{
+                setLoading(false);
             }
         }
     }
@@ -123,9 +129,15 @@ function Signup() {
                     
                     <button 
                         type="submit"
-                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
+                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300 flex justify-center items-center gap-2"
                     >
                         Sign in
+                        { loading && (
+                            <ClipLoader 
+                                size={20}
+                                color='#FFF'
+                            />
+                        ) }
                     </button>
                 </form>
                 <p className="mt-8 text-center text-sm">
