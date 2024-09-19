@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LayoutAdmin from "../Component/LayoutAdmin"
-import { dateTimeFormat } from "../../Function/Function";
+import { dateLitteralToDateTime, dateTimeFormat } from "../../Function/Function";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -75,6 +75,21 @@ function FilterGate(){
         }]
     }
 
+    useEffect(() => {
+        const today = new Date();
+        // Premier jour du mois courant à 00:00
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        firstDay.setHours(0, 0, 0, 0); // S'assure que l'heure est à 00:00
+
+        // Dernier jour du mois courant à 23:59
+        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        lastDay.setHours(23, 59, 59, 999); // S'assure que l'heure est à 23:59:59.999
+
+        setDateFrom(dateLitteralToDateTime(firstDay));
+        setDateTo(dateLitteralToDateTime(lastDay));
+
+    }, []);
+
     return(
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
@@ -85,6 +100,7 @@ function FilterGate(){
                             type="datetime-local" 
                             name="" 
                             id="" 
+                            value={dateFrom}
                             className="border border-neutral-400 px-8 py-2 rounded-md"
                             onChange={(e) => setDateFrom(e.target.value)}
                         />
@@ -93,6 +109,7 @@ function FilterGate(){
                             type="datetime-local" 
                             name="" 
                             id="" 
+                            value={dateTo}
                             className="border border-neutral-400 px-8 py-2 rounded-md"
                             onChange={(e) => setDateTo(e.target.value)}
                         />
@@ -115,10 +132,10 @@ function FilterGate(){
                 :
                     <div className="py-4 grid grid-cols-1 xl:grid-cols-3 gap-0 xl:gap-10">
                         <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
+                            <div className="flex bg-lime-500 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Entree ? totalGateOperation?.Entree : 0 }</p>
-                                    <p className="text-neutral-500">Nombre d'entrée</p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Entree ? totalGateOperation?.Entree : 0 }</p>
+                                    <p className="text-white">Nombre d'entrée</p>
                                 </div>
                                 <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <SouthEastIcon className="text-lime-600" sx={{ fontSize : 40 }}/>
@@ -133,10 +150,10 @@ function FilterGate(){
                                     <SouthEastIcon className="text-lime-600" sx={{ fontSize : 40 }}/>
                                 </div>
                             </div>
-                            <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
+                            <div className="flex bg-amber-300 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Sortie ? totalGateOperation?.Sortie : 0 }</p>
-                                    <p className="text-neutral-500">Nombre de sortie </p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Sortie ? totalGateOperation?.Sortie : 0 }</p>
+                                    <p className="text-white">Nombre de sortie </p>
                                 </div>
                                 <div className="bg-amber-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <NorthEastIcon className="text-amber-500" sx={{ fontSize : 40 }}/>

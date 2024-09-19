@@ -70,8 +70,8 @@ function AdminImport(){
                 <div className="border-2 border-dashed border-neutral-300 h-auto rounded-2xl flex flex-col xl:flex-row items-center justify-between py-8 px-20 gap-4">
                     <div className="max-w-[60rem] flex flex-col gap-4 break-all">
                         <span className="flex md:flex-row flex-col gap-1">
-                            <p>Importez le fichier </p>
-                            <p className="font-bold">CSV</p>
+                            <p>Importez le fichier CSV des</p>
+                            <p className="font-bold">opérations des barrières</p>
                             <p>comme ci-dessous ici :</p>
                         </span>
                         <CsvGateOperation />
@@ -106,8 +106,8 @@ function AdminImport(){
                 <div className="border-2 border-dashed border-neutral-300 h-auto rounded-2xl flex flex-col xl:flex-row items-center justify-between py-8 px-20 gap-4">
                     <div className="max-w-[60rem] flex flex-col gap-4 break-all">
                         <span className="flex md:flex-row flex-col gap-1">
-                            <p>Importez le fichier </p>
-                            <p className="font-bold">CSV</p>
+                            <p>Importez le fichier CSV</p>
+                            <p className="font-bold">des anomalies</p>
                             <p>comme ci-dessous ici :</p>
                         </span>
                         <CsvAnomalie />
