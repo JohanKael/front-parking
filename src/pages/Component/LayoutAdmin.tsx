@@ -6,6 +6,7 @@ import PlayForWorkIcon from '@mui/icons-material/PlayForWork';
 import MenuIcon from '@mui/icons-material/Menu';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import Perso from './../../../image/perso.png'
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import React, { useEffect, useState } from 'react';
 
 interface LayoutProps{
@@ -81,6 +82,12 @@ function LayoutAdmin({ children } : LayoutProps) {
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <AnalyticsIcon /> 
                                 <p className='md:hidden xl:block'>&nbsp;Statistiques barrières</p>
+                            </div>
+                        </Link>
+                        <Link to='/admin/ocr'>
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <DocumentScannerIcon /> 
+                                <p className='md:hidden xl:block'>&nbsp;OCR</p>
                             </div>
                         </Link>
                     </div>
