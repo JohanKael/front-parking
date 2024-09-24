@@ -34,7 +34,7 @@ function LayoutAdmin({ children } : LayoutProps) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        console.log(pathname);
+        // console.log(pathname);
         if (!token && pathname !== '/go/admin' && pathname !== '/' && pathname !== '/signup' && pathname !== '/go/admin/signup') {
             navigate('/not-found');
         }
@@ -66,7 +66,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                     </div>
                     <div className='bg-white bg-opacity-10 md:bg-opacity-10 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
                         <h2 className='text-white text-2xl font-semibold ml-2'>Liens</h2>
-                        <Link to='/admin/paie'>
+                        <Link to='/admin/home'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <h2 className='font-bold'>MGA</h2>
                                 <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
@@ -78,7 +78,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                                 <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques barrières</p>
                             </div>
                         </Link>
-                        <Link to='/admin/home'>
+                        <Link to='/admin/user'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <PeopleIcon /> 
                                 <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Gestion des utilisateurs</p>

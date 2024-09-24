@@ -20,12 +20,12 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/go/admin" element={<AdminLogin />} />
           <Route path="/go/admin/signup" element={<AdminSignup />} />
-          <Route path="/admin/home" element={<AdminUser />} />
+          <Route path="/admin/user" element={<AdminUser />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/admin/import" element={<AdminImport />} />
           <Route path="/admin/gate" element={<FilterGate />} />
           <Route path="/admin/ocr" element={<Ocr />} />
-          <Route path="/admin/paie" element={<AdminPaie />} />
+          <Route path="/admin/home" element={<AdminPaie />} />
         </Routes>
       </BrowserRouter>
     </>

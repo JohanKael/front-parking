@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import LayoutAdmin from "../Component/LayoutAdmin"
-import { dateLitteralToDateTime, dateTimeFormat } from "../../Function/Function";
+import { dateLitteralToDateTime, dateTimeFormat, formatNumber } from "../../Function/Function";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -38,8 +38,8 @@ function FilterGate(){
         const dateTwo = dateTimeFormat(dateTo);
         setLoading(true);
         try {
-            const url_to_post = "http://10.0.105.140:5002/Gate/filter";
-            const response = await axios.get(url_to_post, {
+            const url_to_get = "http://10.0.105.140:5002/Gate/filter";
+            const response = await axios.get(url_to_get, {
                 params:{
                     dateFrom : dateOne,
                     dateTo : dateTwo
@@ -94,7 +94,7 @@ function FilterGate(){
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-6 xl:gap-2">
-                    <p className="text-lg font-semibold">Veuiller choisir entre deux dates :</p>
+                    <p className="text-lg font-semibold">Veuillez choisir entre deux dates :</p>
                     <div className="flex flex-col xl:flex-row gap-2 xl:gap-10 xl:items-center">
                         <input 
                             type="datetime-local" 
@@ -134,7 +134,7 @@ function FilterGate(){
                         <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="flex bg-lime-500 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Entree ? totalGateOperation?.Entree : 0 }</p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Entree ? formatNumber(totalGateOperation?.Entree) : 0 }</p>
                                     <p className="text-white">Nombre d'entrée</p>
                                 </div>
                                 <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
@@ -143,7 +143,7 @@ function FilterGate(){
                             </div>
                             <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Entree_rfid ? totalGateOperation?.Entree_rfid : 0 }</p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Entree_rfid ? formatNumber(totalGateOperation?.Entree_rfid) : 0 }</p>
                                     <p className="text-neutral-500">Nombre d'entrée abonnement </p>
                                 </div>
                                 <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
@@ -152,7 +152,7 @@ function FilterGate(){
                             </div>
                             <div className="flex bg-amber-300 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Sortie ? totalGateOperation?.Sortie : 0 }</p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Sortie ? formatNumber(totalGateOperation?.Sortie) : 0 }</p>
                                     <p className="text-white">Nombre de sortie </p>
                                 </div>
                                 <div className="bg-amber-200 xl:p-2 rounded-lg xl:rounded-2xl">
@@ -161,7 +161,7 @@ function FilterGate(){
                             </div>
                             <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
-                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Sortie_rfid ? totalGateOperation?.Sortie_rfid : 0 }</p>
+                                    <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Sortie_rfid ? formatNumber(totalGateOperation?.Sortie_rfid) : 0 }</p>
                                     <p className="text-neutral-500">Nombre de sortie abonnement </p>
                                 </div>
                                 <div className="bg-amber-200 xl:p-2 rounded-lg xl:rounded-2xl">
