@@ -66,28 +66,34 @@ function LayoutAdmin({ children } : LayoutProps) {
                     </div>
                     <div className='bg-white bg-opacity-10 md:bg-opacity-10 md:backdrop-blur-3xl w-full flex flex-col px-2 rounded-3xl py-2 gap-1'>
                         <h2 className='text-white text-2xl font-semibold ml-2'>Liens</h2>
+                        <Link to='/admin/paie'>
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <h2 className='font-bold'>MGA</h2>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
+                            </div>
+                        </Link>
                         <Link to='/admin/gate'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <AnalyticsIcon /> 
-                                <p className='md:hidden xl:block'>&nbsp;Statistiques barrières</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques barrières</p>
                             </div>
                         </Link>
                         <Link to='/admin/home'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <PeopleIcon /> 
-                                <p className='md:hidden xl:block'>&nbsp;Gestion des utilisateurs</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Gestion des utilisateurs</p>
                             </div>
                         </Link>
                         <Link to='/admin/import'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <PlayForWorkIcon /> 
-                                <p className='md:hidden xl:block'>&nbsp;Import</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Import</p>
                             </div>
                         </Link>
                         <Link to='/admin/ocr'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <DocumentScannerIcon /> 
-                                <p className='md:hidden xl:block'>&nbsp;OCR</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;OCR</p>
                             </div>
                         </Link>
                     </div>

@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound.tsx';
 import AdminImport from './pages/Admin/AdminImport.tsx';
 import FilterGate from './pages/Admin/FilterGate.tsx';
 import Ocr from './pages/Admin/Ocr.tsx';
+import AdminPaie from './pages/Admin/AdminPaie.tsx';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/admin/import" element={<AdminImport />} />
           <Route path="/admin/gate" element={<FilterGate />} />
           <Route path="/admin/ocr" element={<Ocr />} />
+          <Route path="/admin/paie" element={<AdminPaie />} />
         </Routes>
       </BrowserRouter>
     </>
