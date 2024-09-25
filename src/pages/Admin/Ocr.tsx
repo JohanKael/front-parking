@@ -69,15 +69,15 @@ function Ocr(){
     };
 
     // Fonction pour obtenir une couleur pour chaque prix
-    const priceColors: { [key: number]: string } = {};
-    const getPriceColor = (price: number) => {
-        if (!priceColors[price]) {
-            // Assignez une couleur unique à chaque prix
-            const colors = ['text-green-600', 'text-amber-600', 'text-purple-600', 'text-sky-800', 'text-red-500'];
-            priceColors[price] = colors[Object.keys(priceColors).length % colors.length];
-        }
-        return priceColors[price];
-    };
+    // const priceColors: { [key: number]: string } = {};
+    // const getPriceColor = (price: number) => {
+    //     if (!priceColors[price]) {
+    //         // Assignez une couleur unique à chaque prix
+    //         const colors = ['text-green-600', 'text-amber-600', 'text-purple-600', 'text-sky-800', 'text-red-500'];
+    //         priceColors[price] = colors[Object.keys(priceColors).length % colors.length];
+    //     }
+    //     return priceColors[price];
+    // };
 
     // Fonction pour enlever chaque image ainsi que leur présence dans le tableau
     const handleImageRemoval = (index: number) => {

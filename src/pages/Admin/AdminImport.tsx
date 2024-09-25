@@ -1,7 +1,7 @@
 import LayoutAdmin from "../Component/LayoutAdmin"
 import UploadIcon from '@mui/icons-material/CloudUpload';
 import { CsvAnomalie, CsvGateOperation } from '../Component/CsvCard'
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 function AdminImport(){

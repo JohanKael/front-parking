@@ -1,5 +1,7 @@
+
+
 export const formatDate = (dateString: string) => {
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -11,6 +13,7 @@ export const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', options);
 };
+
 
 // Convertir la date time du front en datetime pour le back
 export const dateTimeFormat = (dateString : string) => {
