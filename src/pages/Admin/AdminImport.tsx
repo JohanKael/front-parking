@@ -70,7 +70,7 @@ function AdminImport(){
                 <div className="border-2 border-dashed border-neutral-300 h-auto rounded-2xl flex flex-col xl:flex-row items-center justify-between py-8 px-20 gap-4">
                     <div className="max-w-[60rem] flex flex-col gap-4 break-all">
                         <span className="flex md:flex-row flex-col gap-1">
-                            <p>Importez le fichier CSV des</p>
+                            <p>Veuillez importer le fichier CSV des</p>
                             <p className="font-bold">opérations des barrières</p>
                             <p>comme ci-dessous ici :</p>
                         </span>
@@ -85,7 +85,7 @@ function AdminImport(){
                         }}
                         accept=".csv, text/csv" />
                         <label htmlFor="import-gate-operation">
-                            <div className="border-2 border-dashed rounded-xl border-neutral-300 h-28 min-w-28 flex flex-col justify-center items-center cursor-pointer px-4">
+                            <div className="border-2 border-dashed rounded-xl border-neutral-300 hover:border-neutral-400 transition h-28 min-w-28 flex flex-col justify-center items-center cursor-pointer px-4">
                                 <UploadIcon sx={{fontSize : 60}} className="text-neutral-300" />
                                 <p className="text-neutral-500">{ file1Name }</p>
                             </div>
@@ -106,7 +106,7 @@ function AdminImport(){
                 <div className="border-2 border-dashed border-neutral-300 h-auto rounded-2xl flex flex-col xl:flex-row items-center justify-between py-8 px-20 gap-4">
                     <div className="max-w-[60rem] flex flex-col gap-4 break-all">
                         <span className="flex md:flex-row flex-col gap-1">
-                            <p>Importez le fichier CSV</p>
+                            <p>Veuillez importer le fichier CSV</p>
                             <p className="font-bold">des anomalies</p>
                             <p>comme ci-dessous ici :</p>
                         </span>
@@ -121,7 +121,7 @@ function AdminImport(){
                         }}
                         accept=".csv, text/csv" />
                         <label htmlFor="import-anomalie">
-                            <div className="border-2 border-dashed rounded-xl border-neutral-300 h-28 min-w-28 flex flex-col justify-center items-center cursor-pointer px-4">
+                            <div className="border-2 border-dashed rounded-xl border-neutral-300 hover:border-neutral-400 transition h-28 min-w-28 flex flex-col justify-center items-center cursor-pointer px-4">
                                 <UploadIcon sx={{fontSize : 60}} className="text-neutral-300" />
                                 <p className="text-neutral-500">{ file2Name }</p>
                             </div>

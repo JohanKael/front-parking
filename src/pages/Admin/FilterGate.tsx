@@ -94,7 +94,7 @@ function FilterGate(){
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-6 xl:gap-2">
-                    <p className="text-lg font-semibold">Veuillez choisir entre deux dates :</p>
+                    <p className="text-lg font-semibold">Veuillez choisir la période :</p>
                     <div className="flex flex-col xl:flex-row gap-2 xl:gap-10 xl:items-center">
                         <input 
                             type="datetime-local" 
@@ -135,7 +135,7 @@ function FilterGate(){
                             <div className="flex bg-lime-500 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
                                     <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Entree ? formatNumber(totalGateOperation?.Entree) : 0 }</p>
-                                    <p className="text-white">Nombre d'entrée</p>
+                                    <p className="text-white">Nombre d'entrées</p>
                                 </div>
                                 <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <SouthEastIcon className="text-lime-600" sx={{ fontSize : 40 }}/>
@@ -144,7 +144,7 @@ function FilterGate(){
                             <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
                                     <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Entree_rfid ? formatNumber(totalGateOperation?.Entree_rfid) : 0 }</p>
-                                    <p className="text-neutral-500">Nombre d'entrée abonnement </p>
+                                    <p className="text-neutral-500">Nombre d'entrées abonnement </p>
                                 </div>
                                 <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <SouthEastIcon className="text-lime-600" sx={{ fontSize : 40 }}/>
@@ -153,7 +153,7 @@ function FilterGate(){
                             <div className="flex bg-amber-300 rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
                                     <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Sortie ? formatNumber(totalGateOperation?.Sortie) : 0 }</p>
-                                    <p className="text-white">Nombre de sortie </p>
+                                    <p className="text-white">Nombre de sorties </p>
                                 </div>
                                 <div className="bg-amber-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <NorthEastIcon className="text-amber-500" sx={{ fontSize : 40 }}/>
@@ -162,14 +162,14 @@ function FilterGate(){
                             <div className="flex border rounded-2xl p-6 hover:shadow-xl shadow-xl justify-between items-center">
                                 <div className="flex flex-col items-start">
                                     <p className="font-semibold text-[3rem] xl:text-[4rem] text-neutral-800">{ totalGateOperation?.Sortie_rfid ? formatNumber(totalGateOperation?.Sortie_rfid) : 0 }</p>
-                                    <p className="text-neutral-500">Nombre de sortie abonnement </p>
+                                    <p className="text-neutral-500">Nombre de sorties abonnement </p>
                                 </div>
                                 <div className="bg-amber-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <NorthEastIcon className="text-amber-500" sx={{ fontSize : 40 }}/>
                                 </div>
                             </div>
                             <div className="shadow-xl p-8 md:col-span-2">
-                                <p className="font-semibold text-lg pb-2">Le nombre d'anomalies rencontrées entre ces dates :</p>
+                                <p className="font-semibold text-lg pb-2">Nombre d'anomalies rencontrées durant cette période :</p>
                                 {
                                     (totalGateOperation?.Already_Used) ? 
                                     <div className="w-full">

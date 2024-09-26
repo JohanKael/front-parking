@@ -60,7 +60,7 @@ function AdminHome(){
             const url = `http://10.0.105.140:5002/User/changeConfirmation/${userid}`
             const res = await changeUserConfirmation(user.userId , url, state)
             if(res != null){
-                navigate('/admin/home')
+                navigate('/admin/user')
             }
         } catch (error) {
             console.log(error)
@@ -146,7 +146,7 @@ function AdminHome(){
                         </div><br />
 
                             <div className='bg-white border border-neutral-300 rounded-3xl hover:shadow-lg hover:shadow-neutral-300 transition p-10 overflow-x-auto'>
-                                <p className='mb-6'>La liste des demandes d'accès :</p>
+                                <p className='mb-6'>Liste des demandes d'accès :</p>
                                 { ( nonConfirmed != null) ? 
                                     <table className='border-collapse w-full'>
                                         <thead>
@@ -205,7 +205,7 @@ function AdminHome(){
                             </div><br />
 
                             <div className='bg-white border border-neutral-300 rounded-3xl hover:shadow-lg hover:shadow-neutral-300 transition p-10 overflow-x-auto'>
-                                <p className='mb-6'>La liste des accès refusé :</p>
+                                <p className='mb-6'>Liste des accès refusés :</p>
                                 <table className='border-collapse w-full'>
                                     <thead>
                                         <tr className='border-b border-neutral-300'>
