@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import LayoutAdmin from "../Component/LayoutAdmin"
 import { dateLitteralToDateTime, dateTimeFormat, formatNumber } from "../../Function/Function";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
@@ -7,6 +6,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from "react-chartjs-2";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
+import Layout from "../Component/Layout";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,7 +25,7 @@ interface GateOperation{
     Token_Unknown: number
 }
 
-function FilterGate(){
+function Gate(){
 
     const [ dateFrom, setDateFrom ] = useState<string>('');
     const [ dateTo, setDateTo ] = useState<string>('');
@@ -90,7 +90,7 @@ function FilterGate(){
     }, []);
 
     return(
-        <LayoutAdmin>
+        <Layout>
             <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-6 xl:gap-2">
                     <p className="text-lg font-semibold">Veuillez choisir la période :</p>
@@ -136,7 +136,7 @@ function FilterGate(){
                                     <p className="font-semibold text-[3rem] xl:text-[4rem] text-white">{ totalGateOperation?.Entree ? formatNumber(totalGateOperation?.Entree) : 0 }</p>
                                     <p className="text-white">Nombre d'entrées</p>
                                 </div>
-                                <div className="bg-green-200 bg-opacity-60 xl:p-2 rounded-lg xl:rounded-2xl">
+                                <div className="bg-green-200 xl:p-2 rounded-lg xl:rounded-2xl">
                                     <SouthEastIcon className="text-lime-600" sx={{ fontSize : 40 }}/>
                                 </div>
                             </div>
@@ -228,8 +228,8 @@ function FilterGate(){
                 }
             </div>
             
-        </LayoutAdmin>
+        </Layout>
     )
 }
 
-export default FilterGate
+export default Gate

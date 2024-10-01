@@ -2,12 +2,44 @@ import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from 'react-router-dom';
 import Logo from '../../image/logo-remove.png';
+import { useState } from 'react';
+import { loginUser } from '../services/authService';
+import { redirect } from '../services/redirection';
+import { ClipLoader } from 'react-spinners';
 
 
 function Login() {
 
+    const [email, setEmail] = useState<string>('');
+    const [pass, setPassword] = useState<string>('');
+    const [error, setError] = useState('');
 
+    const [loading, setLoading] = useState(false);
 
+    // Fonction de login
+    const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const result = await loginUser(email, pass);
+            if (result.status === 'loginFailed') {
+                setError(result.message);
+            } else {
+                localStorage.setItem('token', result.token);
+                const user = {
+                    userId : result.idUser,
+                    userName : result.nom,
+                    userEmail : result.email
+                }
+                sessionStorage.setItem('userInfo', JSON.stringify(user));
+                redirect(result.status);
+            }
+        } catch (error) {
+            console.error('Erreur de connexion:', error);
+        }finally{
+            setLoading(false);
+        }
+    }
 
 
     return (
@@ -16,7 +48,7 @@ function Login() {
                 <img src={ Logo } className="w-32 h-28 mx-auto" alt="logo" />
                 <h2 className="text-2xl text-center max-w-xs mx-auto mb-10"><p className="text-green-600">Bonjour, </p> veuillez vous connecter pour le suivi du parking</h2>
                 
-                <form className="">
+                <form className="" onSubmit={handleSubmit}>
                     <div className="relative mt-14">
                         <input
                             type="email"
@@ -25,6 +57,7 @@ function Login() {
                             required
                             placeholder="Email"
                             className="mt-1 block w-full px-3 py-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-green-600 placeholder-transparent peer"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <label
                             htmlFor="email"
@@ -41,6 +74,7 @@ function Login() {
                             required
                             placeholder="Password"
                             className="mt-1 block w-full px-3 py-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-green-600 placeholder-transparent peer"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <label
                             htmlFor="password"
@@ -49,12 +83,23 @@ function Login() {
                             <HttpsIcon /> Password
                         </label>
                     </div>
+                    {error && (
+                        <div className="mt-8 text-center text-sm text-red-600 border border-red-600 rounded-lg bg-white p-2">
+                            {error}
+                        </div>
+                    )}
                     
                     <button 
                         type="submit"
-                        className="mt-16 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300"
+                        className="mt-14 w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300 flex justify-center items-center gap-2"
                     >
                         Login
+                        { loading && (
+                            <ClipLoader 
+                                size={20}
+                                color='#FFF'
+                            />
+                        ) }
                     </button>
                 </form>
                 <p className="mt-8 text-center text-sm">

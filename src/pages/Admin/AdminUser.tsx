@@ -7,6 +7,8 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { formatDate } from '../../Function/Function.ts'
 import { User } from '../../services/authService.ts'
 import { useNavigate } from 'react-router-dom';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 function AdminHome(){
     const navigate = useNavigate();
@@ -19,6 +21,8 @@ function AdminHome(){
 
     const [deniedUser, setDeniedUser] = useState<User[] | null>([]);
     const deniedUserCount = deniedUser ? deniedUser.length : 0;
+
+    const [activeUsers, setActiveUsers] = useState<User[]>([]);
 
     // liste des users en pending(en attente)
     const getNonConfirmedUsers = async () => {
@@ -78,9 +82,21 @@ function AdminHome(){
             getDeniedUsers();
         }, 100)
 
-
-
     }, [reload, navigate]);
+
+    const getActiveUsers = async () => {
+        try {
+            const url_to_fetch = 'http://10.0.105.140:5002/User/active';
+            const response = await fetchDatas(url_to_fetch);
+            setActiveUsers(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getActiveUsers();
+    }, [activeUsers]);
 
     // fenêtre demande de confirmation final
     const [ windowConfirmation, setWindowConfirmation] = useState(false);
@@ -117,44 +133,55 @@ function AdminHome(){
                             </div>
                         </div>
                     </div>
-                    <div className='col-span-2'>
-                        <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-10'>
-                            <div className='bg-gradient-to-l from-green-500 to-lime-300 md:h-52 hover:shadow-xl flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4 transition'>
-                                <div>
-                                    Nombre d'utilisateurs total :
+                    <div className='grid grid-cols-1 2xl:grid-cols-3 gap-10'>
+                        <div className='col-span-2'>
+                            <div className='grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-10'>
+                                <div className='bg-gradient-to-l from-green-500 to-lime-300 xl:h-52 hover:shadow-xl flex flex-col items-center justify-center text-white rounded-3xl px-4 pt-4 transition'>
+                                    <div>
+                                        Nombre d'utilisateurs total
+                                    </div>
+                                    <div className='font-bold text-[5rem]'>
+                                        { confirmedCount }
+                                    </div>
                                 </div>
-                                <div className='font-bold text-[5rem]'>
-                                    { confirmedCount }
+                                <div className='bg-white border border-neutral-300 xl:h-52 hover:shadow-lg flex flex-col xl:flex-row justify-between hover:shadow-neutral-300 transition items-end text-white rounded-3xl px-10 py-2'>
+                                    <div>
+                                        <div className='text-black'>
+                                            Nombre de demande d'accès
+                                        </div>
+                                        <div className='text-neutral-500 font-semibold text-[4rem] xl:text-[5rem]'>
+                                            { nonConfirmedCount }
+                                        </div>
+                                    </div>
+                                    <div className='bg-amber-200 p-2 rounded-xl mb-5'>
+                                        <PersonAddIcon className='text-amber-400' sx={{fontSize: 30}}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='bg-white border border-neutral-300 md:h-52 hover:shadow-lg flex flex-col hover:shadow-neutral-300 transition items-center justify-center text-white rounded-3xl px-4 pt-4'>
-                                <div className='text-black'>
-                                    Nombre de demande d'accès :
+                                <div className='bg-white border border-neutral-300 xl:h-52 hover:shadow-lg flex flex-col xl:flex-row justify-between hover:shadow-neutral-300 transition items-end text-white rounded-3xl px-10 py-2'>
+                                    <div>
+                                        <div className='text-black'>
+                                            Nombre d'accès refusé
+                                        </div>
+                                        <div className='text-neutral-500 font-semibold text-[4rem] xl:text-[5rem]'>
+                                            { deniedUserCount }
+                                        </div>
+                                    </div>
+                                    <div className='bg-rose-200 p-2 rounded-xl mb-5'>
+                                        <PersonOffIcon className='text-rose-400' sx={{fontSize: 30}}/>
+                                    </div>
                                 </div>
-                                <div className='font-normal text-black text-[5rem]'>
-                                    { nonConfirmedCount }
-                                </div>
-                            </div>
-                            <div className='bg-white border border-neutral-300 md:h-52 hover:shadow-lg flex flex-col hover:shadow-neutral-300 transition items-center justify-center text-white rounded-3xl px-4 pt-4'>
-                                <div className='text-black'>
-                                    Nombre d'accès refusé :
-                                </div>
-                                <div className='font-normal text-black text-[5rem]'>
-                                    { deniedUserCount }
-                                </div>
-                            </div>
-                        </div><br />
+                            </div><br />
 
-                            <div className='bg-white border border-neutral-300 rounded-3xl hover:shadow-lg hover:shadow-neutral-300 transition p-10 overflow-x-auto'>
-                                <p className='mb-6'>Liste des demandes d'accès :</p>
+                            <div className='bg-white rounded-3xl p-10 overflow-x-auto'>
+                                <p className='mb-6 font-semibold text-neutral-300 text-2xl'>Liste des demandes d'accès :</p>
                                 { ( nonConfirmed != null) ? 
                                     <table className='border-collapse w-full'>
                                         <thead>
                                             <tr className='border-b border-neutral-300'>
-                                                <th className='p-3 text-left w-1/4'>Nom</th>
-                                                <th className='p-3 text-left w-1/4'>Email</th>
-                                                <th className='p-3 pl-8 text-left w-1/4'>Role</th>
-                                                <th className='p-3 text-left w-1/4'>Date de demande</th>
+                                                <th className='p-3 text-left w-1/4 text-slate-500'>Nom</th>
+                                                <th className='p-3 text-left w-1/4 text-slate-500'>Email</th>
+                                                <th className='p-3 pl-8 text-left w-1/4 text-slate-500'>Role</th>
+                                                <th className='p-3 text-left w-1/4 text-slate-500'>Date de demande</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -204,15 +231,15 @@ function AdminHome(){
                                 }
                             </div><br />
 
-                            <div className='bg-white border border-neutral-300 rounded-3xl hover:shadow-lg hover:shadow-neutral-300 transition p-10 overflow-x-auto'>
-                                <p className='mb-6'>Liste des accès refusés :</p>
+                            <div className='bg-white rounded-3xl p-10 overflow-x-auto'>
+                                <p className='mb-6 font-semibold text-neutral-300 text-2xl'>Liste des accès refusés :</p>
                                 <table className='border-collapse w-full'>
                                     <thead>
                                         <tr className='border-b border-neutral-300'>
-                                            <th className='p-3 text-left w-1/4'>Nom</th>
-                                            <th className='p-3 text-left w-1/4'>Email</th>
-                                            <th className='p-3 pl-8 text-left w-1/4'>Role</th>
-                                            <th className='p-3 text-left w-1/4'>Date de demande</th>
+                                            <th className='p-3 text-left w-1/4 text-slate-500'>Nom</th>
+                                            <th className='p-3 text-left w-1/4 text-slate-500'>Email</th>
+                                            <th className='p-3 pl-8 text-left w-1/4 text-slate-500'>Role</th>
+                                            <th className='p-3 text-left w-1/4 text-slate-500'>Date de demande</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -245,7 +272,22 @@ function AdminHome(){
                                     </tbody>
                                 </table>
                             </div>
-                        
+                        </div>
+
+                        <div className='col-span-1 border border-neutral-300 rounded-3xl p-8'>
+                            <p className='font-semibold text-2xl text-neutral-300 mb-6'>Liste des utilisateurs actifs</p>
+                            {
+                                activeUsers?.map((user, index) => (
+                                    <div key={ index } className='flex items-center justify-between gap-20 border-b border-neutral-200 py-2 px-4'>
+                                        <div>
+                                            <p className='text-lg font-semibold' >{ user.nomUser }</p>
+                                            <p className='text-sm' >{ user.emailUser }</p>
+                                        </div>
+                                        <p className='bg-green-400 bg-opacity-30 text-green-600 px-3 rounded-full text-sm'>active</p>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
 
 

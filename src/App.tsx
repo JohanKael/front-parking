@@ -7,8 +7,11 @@ import AdminUser from './pages/Admin/AdminUser.tsx';
 import NotFound from './pages/NotFound.tsx';
 import AdminImport from './pages/Admin/AdminImport.tsx';
 import FilterGate from './pages/Admin/FilterGate.tsx';
+import ListUser from './pages/Admin/ListUser.tsx';
 import Ocr from './pages/Admin/Ocr.tsx';
 import AdminPaie from './pages/Admin/AdminPaie.tsx';
+import Paie from './pages/User/Paie.tsx';
+import Gate from './pages/User/Gate.tsx';
 
 function App() {
 
@@ -26,6 +29,9 @@ function App() {
           <Route path="/admin/gate" element={<FilterGate />} />
           <Route path="/admin/ocr" element={<Ocr />} />
           <Route path="/admin/home" element={<AdminPaie />} />
+          <Route path="/admin/list" element={<ListUser />} />
+          <Route path="/home" element={<Paie />} />
+          <Route path="/gate" element={<Gate />} />
         </Routes>
       </BrowserRouter>
     </>

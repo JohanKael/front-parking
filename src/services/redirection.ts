@@ -9,6 +9,9 @@ export const redirect = (status: string) => {
     case 'loginFailed':
       window.location.href = '/admin/login';
       break;
+    case 'loginUserSuccess':
+      window.location.href = '/home';
+      break;
     default:
       console.error('Unknown redirect status:', status);
   }

@@ -20,7 +20,7 @@ function AdminLogin() {
         setLoading(true);
         try {
             const result = await loginAdmin(email, password);
-            if (result.status === 'loginFailed') {
+            if (result.status !== 'loginSuccess') {
                 setError(result.message);
             } else {
                 localStorage.setItem('token', result.token);
