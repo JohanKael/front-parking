@@ -32,7 +32,7 @@ function Ocr(){
 
             try {
                 setLoading(true);
-                const response = await axios.post('http://127.0.0.1:8000/upload-images/', formData, {
+                const response = await axios.post('http://10.0.105.140:5000/upload-images/', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

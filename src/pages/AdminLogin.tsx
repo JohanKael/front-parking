@@ -57,7 +57,10 @@ function AdminLogin() {
                             required
                             placeholder="Email"
                             className="mt-1 block w-full px-3 py-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-green-600 placeholder-transparent peer"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setError('');
+                            }}
                         />
                         <label
                             htmlFor="email"
@@ -75,7 +78,11 @@ function AdminLogin() {
                             required
                             placeholder="Password"
                             className="mt-1 block w-full px-3 py-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-green-600 placeholder-transparent peer"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setError('')
+                                }
+                            }
                         />
                         <label
                             htmlFor="password"
