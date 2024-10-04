@@ -5,6 +5,7 @@ import axios from "axios";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, LineElement, PointElement } from 'chart.js';
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import PulseLoader from "react-spinners/PulseLoader";
+import { GateOperation } from "./FilterGate";
 
 // Enregistrement des composants nécessaires pour le graphique
 ChartJS.register(
@@ -154,6 +155,26 @@ function AdminPaie() {
         }
     }
 
+    
+    const [ totalGateOperation, setTotalGateOperation ] = useState<GateOperation>();
+
+    //Fonction qui prend les sorties et les entrées de la date selectionnée
+    const getGateOperation = async (dateOne : string , dateTwo : string) => {
+        try {
+            const url_to_get = "http://10.0.105.140:5002/Gate/filter";
+            const response = await axios.get(url_to_get, {
+                params:{
+                    dateFrom : dateOne,
+                    dateTo : dateTwo
+                }
+            });
+            setTotalGateOperation(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     useEffect(() => {
 
         // Mettre comme date par défaut la date d'hier
@@ -162,7 +183,13 @@ function AdminPaie() {
         const formattedDate = hier.toISOString().slice(0, 10); // Formater pour l'input de type date
         setDate(formattedDate); // Initialiser le state date
 
+        // Pour obtenir "2024-10-03 00:00"
+        const dateWithMidnight = `${formattedDate} 00:00`;
+        // Pour obtenir "2024-10-03 23:59"
+        const dateWithEndOfDay = `${formattedDate} 23:59`;
+
         // Appeler les fonctions avec la date d'hier
+        getGateOperation(dateWithMidnight, dateWithEndOfDay);
         getPaiementYesterday(hier);
         getDetailYesterday(hier);
         getMonthPaiement(hier);
@@ -179,6 +206,14 @@ function AdminPaie() {
 
     const handleFilterClick = () => {
         const selectedDate = new Date(date);
+        const formattedDate = selectedDate.toISOString().slice(0, 10);
+
+        // Pour obtenir "2024-10-03 00:00"
+        const dateWithMidnight = `${formattedDate} 00:00`;
+        // Pour obtenir "2024-10-03 23:59"
+        const dateWithEndOfDay = `${formattedDate} 23:59`;
+
+        getGateOperation(dateWithMidnight, dateWithEndOfDay);
         getPaiementYesterday(selectedDate);
         getDetailYesterday(selectedDate);
         getMonthPaiement(selectedDate);
@@ -310,8 +345,9 @@ function AdminPaie() {
         },
     };
 
+    // nombre total des prix durant la journée
+    const totalNombrePrix = detailYesterday.reduce((acc, detail) => acc + detail.nombrePrix, 0);
     
-
     return (
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
@@ -338,7 +374,7 @@ function AdminPaie() {
                     </div>
                 </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-4 h-[45rem] md:gap-10">
+                    <div className="grid grid-cols-1 xl:grid-cols-4 h-[45rem] md:gap-10">
                         <div className="md:w-full col-span-1 flex flex-col w-full gap-8">
                             <div className="rounded-3xl bg-gradient-to-b from-green-800 to-lime-400 text-white px-6 pt-4 pb-14">
                                 <p className="text-xl text-neutral-200">Recettes date selectionné</p>
@@ -347,34 +383,52 @@ function AdminPaie() {
                                     <p className="mt-3 text-3xl">MGA</p>
                                 </div>
                             </div>
-                            <div className='rounded-3xl py-2 md:py-10 px-8 bg-white shadow-xl flex flex-col gap-0 md:gap-4 border border-neutral-300'>
+                            <div className='rounded-3xl py-2 md:py-10 px-8 bg-white shadow-lg flex flex-col gap-0 md:gap-4 border border-neutral-300'>
                                 <p className="text-2xl font-bold text-neutral-400">Détails date selectionné</p>
                                 <div>
-                                    {
-                                        detailYesterday.map((detail) => (
-                                            <span key={detail.id} className="flex">
+                                {
+                                    detailYesterday.map((detail) => (
+                                        <div key={detail.id}>
+                                            <span className="flex">
                                                 <p>{formatNumber(detail.prix)} Ar : &nbsp;</p>
                                                 <p className="text-green-700">{detail.nombrePrix}</p>
                                             </span>
-                                        ))
-                                    }
+                                        </div>
+                                    ))
+                                }
                                 </div>
                                 <div className="h-80 flex items-center justify-center">
                                     <Doughnut data={details} />
                                 </div>
+                                {
+                                    (totalNombrePrix != 0) ?
+                                        <div className={`border ${totalNombrePrix < totalGateOperation?.Sortie! ? 'border-red-500 bg-rose-700 bg-opacity-20' : 'border-green-500 bg-lime-600 bg-opacity-20'} p-4  rounded-2xl`}>
+                                            <p className={`${totalNombrePrix < totalGateOperation?.Sortie! ? 'text-red-500' : 'text-green-500'}`}>Remarques :</p>
+                                            <span className="flex gap-2 items-center">
+                                                <p className='mt-2 text-md'>Total des nombres de prix : </p>
+                                                <strong className='text-2xl'>{ totalNombrePrix }</strong>
+                                            </span>
+                                            <span className="flex gap-4 items-center">
+                                                <p className='mt-2 text-md'>Total des sorties : </p>
+                                                <strong className='text-2xl'>{ totalGateOperation?.Sortie }</strong>
+                                            </span>
+                                        </div>
+                                        :
+                                        null
+                                }
                             </div>
                         </div>
 
                         <div className="col-span-3 flex flex-col gap-10 pb-10 mt-10 md:mt-0">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                <div className="border border-neutral-300 shadow-xl col-span-1 rounded-3xl text-white px-6 py-9">
+                                <div className="border border-neutral-300 shadow-lg col-span-1 rounded-3xl text-white px-6 py-9">
                                     <p className="text-xl text-neutral-500">Recettes mensuelles</p>
                                     <div className="flex flex-col 2xl:flex-row items-center justify-between gap-0 xl:gap-4">
                                         <h1 className="font-semibold text-[3rem] text-neutral-700">{formatNumber(month)}</h1>
                                         <p className="rounded-lg py-1 px-2 bg-lime-500 mt-3 text-3xl text-white">MGA</p>
                                     </div>
                                 </div>
-                                <div className="border border-neutral-300 shadow-xl col-span-1 rounded-3xl text-white px-6 py-9">
+                                <div className="border border-neutral-300 shadow-lg col-span-1 rounded-3xl text-white px-6 py-9">
                                     <p className="text-xl text-neutral-500">Recettes annuelles</p>
                                     <div className="flex flex-col 2xl:flex-row items-center gap-0 xl:gap-4 justify-between">
                                         <h1 className="font-semibold text-[3rem] text-neutral-700">{formatNumber(year)}</h1>
@@ -385,7 +439,7 @@ function AdminPaie() {
 
                             <div className="grid grid-cols-1 gap-4">
                                 <p className="text-2xl text-neutral-400 font-bold">Encaissements journalier de ce mois :</p>
-                                <div className="border border-neutral-300 rounded-2xl shadow-xl px-4 py-8">
+                                <div className="border border-neutral-300 rounded-2xl shadow-lg px-4 py-8">
                                     <Bar data={chartDailyMonth} options={optionsDailyMonth} />
                                 </div>
                             </div>
@@ -393,14 +447,14 @@ function AdminPaie() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="flex flex-col gap-4">
                                     <p className="text-2xl text-neutral-400 font-bold">Encaissements mensuels :</p>
-                                    <div className="border border-neutral-300 rounded-2xl h-96 shadow-xl flex justify-center items-center">
+                                    <div className="border border-neutral-300 rounded-2xl h-96 shadow-lg flex justify-center items-center">
                                         <Line data={chartDataMonth} options={optionsMonth} />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col gap-4">
                                     <p className="text-2xl text-neutral-400 font-bold">Encaissements annuels :</p>
-                                    <div className="border border-neutral-300 rounded-2xl h-96 shadow-xl flex justify-center items-center">
+                                    <div className="border border-neutral-300 rounded-2xl h-96 shadow-lg flex justify-center items-center">
                                         <Line data={chartDataYear} options={optionsYear} />
                                     </div>
                                 </div>

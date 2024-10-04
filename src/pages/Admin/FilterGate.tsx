@@ -10,7 +10,7 @@ import { SyncLoader } from "react-spinners";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface GateOperation{
+export interface GateOperation{
     Entree : number,
     Entree_rfid : number,
     Sortie : number,
@@ -213,7 +213,7 @@ function FilterGate(){
                             </div>
                         </div>
                         <div className="shadow-xl py-4 col-span-1 rounded-2xl mt-8 xl:mt-0 px-4">
-                            <p className="text-neutral-500">Doughnut Chart des statistiques :</p>
+                            <p className="text-neutral-500">Chart des statistiques :</p>
                             { totalGateOperation ? 
                                 <div className="h-96 flex justify-center items-center">
                                     <Doughnut data={datas}/>
