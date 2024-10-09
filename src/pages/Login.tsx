@@ -22,7 +22,7 @@ function Login() {
         setLoading(true);
         try {
             const result = await loginUser(email, pass);
-            if (result.status !== 'loginSuccess') {
+            if (result.status === 'loginFailed') {
                 setError(result.message);
             } else {
                 const token = result.token;
@@ -33,16 +33,16 @@ function Login() {
                 localStorage.setItem('tokenExpiration', expirationTime.toString());
 
                 const user = {
-                    userId: result.idUser,
-                    userName: result.nom,
-                    userEmail: result.email
-                };
+                    userId : result.idUser,
+                    userName : result.nom,
+                    userEmail : result.email
+                }
                 sessionStorage.setItem('userInfo', JSON.stringify(user));
                 redirect(result.status);
             }
         } catch (error) {
             console.error('Erreur de connexion:', error);
-        } finally {
+        }finally{
             setLoading(false);
         }
     }
