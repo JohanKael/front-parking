@@ -45,6 +45,7 @@ function FilterGate(){
                     dateTo : dateTwo
                 }
             });
+            console.log(response.data);
             setTotalGateOperation(response.data);
         } catch (error) {
             console.log(error);
@@ -169,8 +170,6 @@ function FilterGate(){
                             </div>
                             <div className="shadow-xl p-8 md:col-span-2">
                                 <p className="font-semibold text-lg pb-2">Nombre d'anomalies rencontrées durant cette période :</p>
-                                {
-                                    (totalGateOperation?.Already_Used) ? 
                                     <div className="w-full">
                                         <span className="flex flex-row gap-2">
                                             <p className="text-gray-700">Déjà utilisé :</p>
@@ -205,11 +204,6 @@ function FilterGate(){
                                             <p className="text-indigo-600">{ totalGateOperation?.Others }</p>
                                         </span>
                                     </div>
-                                    :
-                                    <div className="w-full flex justify-center p-8">
-                                        <p className="text-neutral-300 font-semibold text-[2rem]">Il n'y a pas eu d'anomalies</p>
-                                    </div>
-                                }
                             </div>
                         </div>
                         <div className="shadow-xl py-4 col-span-1 rounded-2xl mt-8 xl:mt-0 px-4">

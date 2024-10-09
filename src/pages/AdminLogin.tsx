@@ -23,19 +23,24 @@ function AdminLogin() {
             if (result.status !== 'loginSuccess') {
                 setError(result.message);
             } else {
-                localStorage.setItem('token', result.token);
+                const token = result.token;
+                const expirationTime = Date.now() + 24 * 60 * 60 * 1000; // 24 heures
+
+                // Stockage du token et de la date d'expiration
+                localStorage.setItem('token', token);
+                localStorage.setItem('tokenExpiration', expirationTime.toString());
+
                 const user = {
-                    userId : result.idUser,
-                    userName : result.nom,
-                    userEmail : result.email
-                }
+                    userId: result.idUser,
+                    userName: result.nom,
+                    userEmail: result.email
+                };
                 sessionStorage.setItem('userInfo', JSON.stringify(user));
                 redirect(result.status);
             }
         } catch (error) {
             console.error('Erreur de connexion:', error);
-        }
-        finally{
+        } finally {
             setLoading(false);
         }
     };

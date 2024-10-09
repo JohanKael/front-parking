@@ -48,12 +48,21 @@ function LayoutAdmin({ children } : LayoutProps) {
 
     var user = JSON.parse(sessionStorage.getItem('userInfo')!);
 
+    const isTokenValid = () => {
+        const expiration = localStorage.getItem('tokenExpiration');
+        return expiration && Date.now() < parseInt(expiration);
+    };
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token && pathname !== '/go/admin' && pathname !== '/' && pathname !== '/signup' && pathname !== '/go/admin/signup') {
-            navigate('/not-found');
+        const tokenValid = isTokenValid();
+
+        if (!token || !tokenValid) {
+            if (pathname !== '/go/admin' && pathname !== '/' && pathname !== '/signup' && pathname !== '/go/admin/signup') {
+                navigate('/not-found');
+            }
         }
-    },[pathname])
+    }, [pathname, navigate]);
 
     return (
         <div className="fixed md:px-4 inset-0 bg-slate-100">
