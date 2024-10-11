@@ -5,6 +5,9 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 import { postDatas } from "../../services/service";
 import PulseLoader from "react-spinners/PulseLoader";
 
+interface PriceCounts {
+    [key: number]: number; // Cela signifie que les clés sont des nombres et les valeurs sont aussi des nombres
+}
 
 function Ocr(){
 
@@ -102,10 +105,17 @@ function Ocr(){
     // Pour capturer les changements des nombres par prix
     const [editablePriceCounts, setEditablePriceCounts] = useState<{ [key: number]: number }>({});
 
+    // Définir les prix fixes
+    const fixedPrices: number[] = [1500, 2800, 4400, 22500, 45000];
+
     // Initialiser editablePriceCounts avec totalPriceCount au premier rendu
     useEffect(() => {
-        setEditablePriceCounts(totalPriceCount);
-        // console.log("Valeurs par défaut des totaux:", totalPriceCount);
+        const initialCounts: PriceCounts = fixedPrices.reduce((acc: PriceCounts, price: number) => {
+            acc[price] = totalPriceCount[price] || 0; // Utiliser la valeur existante ou 0
+            return acc;
+        }, {});
+
+        setEditablePriceCounts(initialCounts);
     }, [imageData]);
 
     // Fonction pour gérer le changement de valeur
@@ -231,7 +241,7 @@ function Ocr(){
                     {
                         (showTotaux) ? (
                             /* Affichage des totaux */
-                            <div className="mt-4 col-span-1 w-full xl:h-[30rem] px-10 py-6 flex flex-col gap-10 border border-neutral-400 rounded-2xl shadow-xl">
+                            <div className="mt-4 col-span-1 w-full xl:h-[30rem] px-10 py-6 flex flex-col gap-10">
                                 <div className="rounded-xl">
                                     <h3 className="font-semibold text-xl">Total des prix :</h3>
                                     <div className="flex flex-col gap-2 mt-2">
