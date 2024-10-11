@@ -203,7 +203,7 @@ function Ocr(){
                                                     <div className="mt-2 flex flex-col gap-2">
                                                         {Object.entries(priceCount).map(([price, count], priceIndex) => (
                                                             <div key={priceIndex} className="flex items-center gap-2">
-                                                                <span>{price} Ar:</span>
+                                                                <span>{price} Ar :</span>
                                                                 <input
                                                                     type="number"
                                                                     placeholder={count.toString()}

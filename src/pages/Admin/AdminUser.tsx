@@ -283,7 +283,7 @@ function AdminHome(){
                                             <p className='text-lg font-semibold' >{ user.nomUser }</p>
                                             <p className='text-sm' >{ user.emailUser }</p>
                                         </div>
-                                        <p className='bg-green-400 bg-opacity-30 text-green-600 px-3 rounded-full text-sm'>active</p>
+                                        <p className='bg-green-400 bg-opacity-30 text-green-600 px-3 rounded-full text-sm'>actif</p>
                                     </div>
                                 ))
                             }
