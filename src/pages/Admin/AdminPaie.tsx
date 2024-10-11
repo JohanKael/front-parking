@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LayoutAdmin from "../Component/LayoutAdmin";
-import { dateLitteralToDate, formatNumber, getMonthName } from "../../Function/Function";
+import { formatNumber, getMonthName } from "../../Function/Function";
 import axios from "axios";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, LineElement, PointElement } from 'chart.js';
 import { Doughnut, Line } from "react-chartjs-2";
@@ -49,9 +49,6 @@ function AdminPaie() {
     const [loading, setLoading] = useState<boolean>(false);
     const [dailyMonthPaiement, setDailyMonthPaiement] = useState<DetailChart[]>([]);
 
-    const today = new Date();
-    const moisEnCours = new Date(today.getFullYear(), today.getMonth(), 15); 
-
     // Fonction pour récupérer le paiement d'hier
     const getPaiementEntreDate = async (date: string, dateTwo: string) => {
         setLoading(true);
@@ -74,7 +71,7 @@ function AdminPaie() {
     }
 
     // Fonction pour récupérer les détails du paiement d'hier
-    const getDetailYesterday = async (date: string, dateTwo: string) => {
+    const getDetailPaiement = async (date: string, dateTwo: string) => {
         try {
             const url_to_get = 'http://10.0.105.140:5002/Vente/paiement/details';
             const response = await axios.get(url_to_get, {
@@ -90,12 +87,13 @@ function AdminPaie() {
     }
 
     // obtenir les paiements journalier pour un mois
-    const getDailyMonthPaiement = async () => {
+    const getDailyMonthPaiement = async (date : string, dateTwo : string) => {
         try {
             const url_to_get = 'http://10.0.105.140:5002/Vente/paiement/month/daily';
             const response = await axios.get(url_to_get, {
                 params: {
-                    date: dateLitteralToDate(moisEnCours)
+                    dateFrom: date,
+                    dateTo: dateTwo
                 }
             });
             setDailyMonthPaiement(response.data);
@@ -105,12 +103,12 @@ function AdminPaie() {
     }
 
     // Fonction pour récupérer le total de ce mois pour cette année
-    const getMonthPaiement = async () => {
+    const getMonthPaiement = async (date: string) => {
         try {
             const url_to_get = 'http://10.0.105.140:5002/Vente/paiement/month';
             const response = await axios.get(url_to_get, {
                 params: {
-                    date: dateLitteralToDate(moisEnCours)
+                    date: date
                 }
             });
             setPaiementMonth(response.data);
@@ -120,12 +118,12 @@ function AdminPaie() {
     }
 
     // Fonction pour récupérer le total de ce mois pour cette année
-    const getYearPaiement = async () => {
+    const getYearPaiement = async (date: string) => {
         try {
             const url_to_get = 'http://10.0.105.140:5002/Vente/paiement/year';
             const response = await axios.get(url_to_get, {
                 params: {
-                    date: dateLitteralToDate(moisEnCours)
+                    date: date
                 }
             });
             setPaiementYear(response.data);
@@ -135,12 +133,12 @@ function AdminPaie() {
     }
 
     // Fonction pour récupérer les totals par mois de cette année
-    const getGraphMonth = async () => {
+    const getGraphMonth = async (date: string) => {
         try {
             const url_to_get = 'http://10.0.105.140:5002/Vente/paiement/month/datachart';
             const response = await axios.get(url_to_get, {
                 params: {
-                    date: dateLitteralToDate(moisEnCours)
+                    date: date
                 }
             });
             setDataMonth(response.data);
@@ -197,37 +195,35 @@ function AdminPaie() {
 
         getGateOperation(dateForInput, dateTwoForInput);
         getPaiementEntreDate(dateForInput, dateTwoForInput);
-        getDetailYesterday(dateForInput, dateTwoForInput);
-        getMonthPaiement();
-        getYearPaiement();
-        getGraphMonth();
-        getDailyMonthPaiement();
+        getDetailPaiement(dateForInput, dateTwoForInput);
+        getMonthPaiement(dateForInput);
+        getYearPaiement(dateForInput);
+        getDailyMonthPaiement(dateForInput, dateTwoForInput);
+        getGraphMonth(dateForInput);
 
         getGraphYear();
     }, []);
 
 
     const handleFilterClick = () => {
-        getGateOperation(date, dateFin);
-        getPaiementEntreDate(date, dateFin);
-        getDetailYesterday(date, dateFin);
-    }
+        const firstDayOfMonth = new Date(date);
+        const lastDayOfMonth = new Date(dateFin);
 
-    // Configuration des données pour le graphique en doughnut
-    const details = {
-        labels: detailYesterday.map(item => item.prix.toString()),
-        datasets: [{
-            label: 'Nombre',
-            data: detailYesterday.map(item => item.nombrePrix),
-            backgroundColor: [
-                'rgb(250 204 21)',
-                'rgb(132 204 22)',
-                'rgb(239 68 68)',
-                'rgb(217 119 6)'
-            ],
-            borderColor: '#fff',
-            borderWidth: 1
-        }]
+        const dateForInput = firstDayOfMonth.toISOString().slice(0, 10);
+        const dateTwoForInput = lastDayOfMonth.toISOString().slice(0, 10);
+
+        setDate(dateForInput);
+        setDateFin(dateTwoForInput);
+
+        getGateOperation(dateForInput, dateTwoForInput);
+        getPaiementEntreDate(dateForInput, dateTwoForInput);
+        getDetailPaiement(dateForInput, dateTwoForInput);
+        getMonthPaiement(dateForInput);
+        getYearPaiement(dateForInput);
+        getDailyMonthPaiement(dateForInput, dateTwoForInput);
+        getGraphMonth(dateForInput);
+
+        getGraphYear();
     }
 
     // Configuration des données pour l'encaissement mensuel
@@ -292,6 +288,7 @@ function AdminPaie() {
             backgroundColor: 'rgba(34, 197, 94, 0.5)', // Couleur de fond en green-600
             borderColor: 'rgba(34, 197, 94, 1)', // Couleur de bordure en green-600
             borderWidth: 2,
+            tension: 0.4
         }],
     };
 
@@ -316,6 +313,38 @@ function AdminPaie() {
 
     // nombre total des prix durant la journée
     const totalNombrePrix = detailYesterday.reduce((acc, detail) => acc + detail.nombrePrix, 0);
+
+    const groupedDetails = detailYesterday.reduce<{ [key: number]: { id: number; prix: number; nombrePrix: number } }>((acc, detail) => {
+        if (!acc[detail.prix]) {
+            acc[detail.prix] = {
+                id: detail.id, // ou n'importe quel identifiant unique
+                prix: detail.prix,
+                nombrePrix: 0,
+            };
+        }
+        acc[detail.prix].nombrePrix += detail.nombrePrix; // Cumul des prix
+        return acc;
+    }, {});
+
+    // Convertir l'objet en tableau pour le rendu
+    const uniqueDetails = Object.values(groupedDetails);
+
+    // Configuration des données pour le graphique en doughnut
+    const details = {
+        labels: uniqueDetails.map(item => item.prix.toString()),
+        datasets: [{
+            label: 'Nombre',
+            data: uniqueDetails.map(item => item.nombrePrix),
+            backgroundColor: [
+                'rgb(250 204 21)',
+                'rgb(132 204 22)',
+                'rgb(239 68 68)',
+                'rgb(217 119 6)'
+            ],
+            borderColor: '#fff',
+            borderWidth: 1
+        }]
+    }
     
     return (
         <LayoutAdmin>
@@ -329,6 +358,7 @@ function AdminPaie() {
                             className="border border-neutral-400 px-8 py-2 rounded-md"
                             onChange={(e) => setDate(e.target.value)}
                         />
+                        <p>jusqu'au</p>
                         <input
                             type="date"
                             value={dateFin}
@@ -358,19 +388,19 @@ function AdminPaie() {
                                     <p className="mt-3 text-3xl">MGA</p>
                                 </div>
                             </div>
-                            <div className='rounded-3xl py-2 md:py-10 px-8 bg-white shadow-lg flex flex-col gap-0 md:gap-4 border border-neutral-300'>
+                            <div className='rounded-3xl mb-10 py-2 md:py-10 px-8 bg-white shadow-lg flex flex-col gap-0 md:gap-4 border border-neutral-300'>
                                 <p className="text-2xl font-bold text-neutral-400">Détails date selectionné</p>
                                 <div>
-                                {
-                                    detailYesterday.map((detail) => (
-                                        <div key={detail.id}>
-                                            <span className="flex">
-                                                <p>{formatNumber(detail.prix)} Ar : &nbsp;</p>
-                                                <p className="text-green-700">{detail.nombrePrix}</p>
-                                            </span>
-                                        </div>
-                                    ))
-                                }
+                                    {
+                                        uniqueDetails.map((detail) => (
+                                            <div key={detail.id}>
+                                                <span className="flex">
+                                                    <p>{formatNumber(detail.prix)} Ar : &nbsp;</p>
+                                                    <p className="text-green-700">{detail.nombrePrix}</p>
+                                                </span>
+                                            </div>
+                                        )
+                                    )}
                                 </div>
                                 <div className="h-80 flex items-center justify-center">
                                     <Doughnut data={details} />
@@ -397,14 +427,14 @@ function AdminPaie() {
                         <div className="col-span-3 flex flex-col gap-10 pb-10 mt-10 md:mt-0">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="border border-neutral-300 shadow-lg col-span-1 rounded-3xl text-white px-6 py-9">
-                                    <p className="text-xl text-neutral-500">Recettes mensuelles en cours</p>
+                                    <p className="text-xl text-neutral-500">Recettes mensuelles</p>
                                     <div className="flex flex-col 2xl:flex-row items-center justify-between gap-0 xl:gap-4">
                                         <h1 className="font-semibold text-[3rem] text-neutral-700">{formatNumber(month)}</h1>
                                         <p className="rounded-lg py-1 px-2 bg-lime-500 mt-3 text-3xl text-white">MGA</p>
                                     </div>
                                 </div>
                                 <div className="border border-neutral-300 shadow-lg col-span-1 rounded-3xl text-white px-6 py-9">
-                                    <p className="text-xl text-neutral-500">Recettes annuelles en cours</p>
+                                    <p className="text-xl text-neutral-500">Recettes annuelles</p>
                                     <div className="flex flex-col 2xl:flex-row items-center gap-0 xl:gap-4 justify-between">
                                         <h1 className="font-semibold text-[3rem] text-neutral-700">{formatNumber(year)}</h1>
                                         <p className="rounded-lg py-1 px-2 bg-amber-500 mt-3 text-3xl text-white">MGA</p>
@@ -413,7 +443,7 @@ function AdminPaie() {
                             </div>
 
                             <div className="grid grid-cols-1 gap-4">
-                                <p className="text-2xl text-neutral-400 font-bold">Encaissements journalier de ce mois :</p>
+                                <p className="text-2xl text-neutral-400 font-bold">Encaissements journalier entre les dates selectionnées :</p>
                                 <div className="border border-neutral-300 rounded-2xl h-96 shadow-lg flex justify-center items-center">
                                     <Line data={chartDailyMonth} options={optionsDailyMonth} />
                                 </div>
