@@ -93,7 +93,7 @@ function FilterGate(){
     return(
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
-                <div className="flex gap-36 items-center">
+                <div className="flex gap-36 items-center justify-between">
                     <div className="flex flex-col gap-6 xl:gap-2">
                         <p className="text-lg font-semibold">Veuillez choisir la période :</p>
                         <div className="flex flex-col xl:flex-row gap-2 xl:gap-10 xl:items-center">
@@ -123,10 +123,10 @@ function FilterGate(){
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <p className="text-lg font-semibold">Capacité du parking :</p>
-                        <p>Parking principal: 404</p>
-                        <p>Parking déléstage: 145</p>
+                    <div className="bg-neutral-800 px-6 py-4 rounded-2xl">
+                        <p className="text-lg font-semibold text-white">Capacité du parking :</p>
+                        <p className="text-neutral-300">Parking principal: 404</p>
+                        <p className="text-neutral-300">Parking déléstage: 145</p>
                     </div>
                 </div>
                 { 

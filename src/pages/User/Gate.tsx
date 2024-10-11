@@ -92,33 +92,40 @@ function Gate(){
     return(
         <Layout>
             <div className="flex flex-col gap-10">
-                <div className="flex flex-col gap-6 xl:gap-2">
-                    <p className="text-lg font-semibold">Veuillez choisir la période :</p>
-                    <div className="flex flex-col xl:flex-row gap-2 xl:gap-10 xl:items-center">
-                        <input 
-                            type="datetime-local" 
-                            name="" 
-                            id="" 
-                            value={dateFrom}
-                            className="border border-neutral-400 px-8 py-2 rounded-md"
-                            onChange={(e) => setDateFrom(e.target.value)}
-                        />
-                        <p>&nbsp;jusqu'à&nbsp;</p>
-                        <input 
-                            type="datetime-local" 
-                            name="" 
-                            id="" 
-                            value={dateTo}
-                            className="border border-neutral-400 px-8 py-2 rounded-md"
-                            onChange={(e) => setDateTo(e.target.value)}
-                        />
-                        <button 
-                            type="submit"
-                            className="bg-teal-500 text-white rounded-md px-8 py-2 text-lg hover:bg-teal-600 transition-colors mt-3 xl:mt-0"
-                            onClick={getDate}
-                        >
-                            Filtrer
-                        </button>
+                <div className="flex gap-36 items-center justify-between">
+                    <div className="flex flex-col gap-6 xl:gap-2">
+                        <p className="text-lg font-semibold">Veuillez choisir la période :</p>
+                        <div className="flex flex-col xl:flex-row gap-2 xl:gap-10 xl:items-center">
+                            <input 
+                                type="datetime-local" 
+                                name="" 
+                                id="" 
+                                value={dateFrom}
+                                className="border border-neutral-400 px-8 py-2 rounded-md"
+                                onChange={(e) => setDateFrom(e.target.value)}
+                            />
+                            <p>&nbsp;jusqu'à&nbsp;</p>
+                            <input 
+                                type="datetime-local" 
+                                name="" 
+                                id="" 
+                                value={dateTo}
+                                className="border border-neutral-400 px-8 py-2 rounded-md"
+                                onChange={(e) => setDateTo(e.target.value)}
+                            />
+                            <button 
+                                type="submit"
+                                className="bg-teal-500 text-white rounded-md px-8 py-2 text-lg hover:bg-teal-600 transition-colors mt-3 xl:mt-0"
+                                onClick={getDate}
+                            >
+                                Filtrer
+                            </button>
+                        </div>
+                    </div>
+                    <div className="bg-neutral-800 px-6 py-4 rounded-2xl">
+                        <p className="text-lg font-semibold text-white">Capacité du parking :</p>
+                        <p className="text-neutral-300">Parking principal: 404</p>
+                        <p className="text-neutral-300">Parking déléstage: 145</p>
                     </div>
                 </div>
                 { 
