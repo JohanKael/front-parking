@@ -3,6 +3,7 @@ import UploadIcon from '@mui/icons-material/CloudUpload';
 import { CsvAnomalie, CsvGateOperation } from '../Component/CsvCard'
 import { useState } from "react";
 import axios from "axios";
+import { PulseLoader } from "react-spinners";
 
 function AdminImport(){
 
@@ -13,24 +14,34 @@ function AdminImport(){
     const [file1, setFile1] = useState<File | null>(null);
     const [file1Name, setFile1Name] = useState<String>('');
 
+    const [loadingBarriere, setLoadingBarriere] = useState(false);
+    const [loadingAnomalie, setLoadingAnomalie] = useState(false);
+
     const submitGateOperation = async () => {
         if(!file1){
             setMessage1('Choisissez d\'abord un CSV')
         }
         else{
-            const fd = new FormData();
-            fd.append('file', file1);
+            try {
+                setLoadingBarriere(true);
+                const fd = new FormData();
+                fd.append('file', file1);
 
-            await axios.post('http://10.0.105.140:5002/Gate/operation', fd, {
-                headers : {
-                    "Custom-Header": "value",
-                }
-            }).then(res => { 
-                setMessage1(res.data);
-            }).catch(err =>{ 
-                setError1("Upload failed")
-                console.log(err);
-            });
+                await axios.post('http://10.0.105.140:5002/Gate/operation', fd, {
+                    headers : {
+                        "Custom-Header": "value",
+                    }
+                }).then(res => { 
+                    setMessage1(res.data);
+                }).catch(err =>{ 
+                    setError1("Upload failed")
+                    console.log(err);
+                });
+            } catch (error) {
+                console.log(error);
+            }finally{
+                setLoadingBarriere(false);
+            }
         } 
     }
 
@@ -47,19 +58,26 @@ function AdminImport(){
         if(!file2){
             setMessage2('Choisissez d\'abord un CSV')
         }else{
-            const fd = new FormData();
-            fd.append('file', file2);
+            try {
+                setLoadingAnomalie(true);
+                const fd = new FormData();
+                fd.append('file', file2);
 
-            await axios.post('http://10.0.105.140:5002/Gate/anomalie', fd, {
-                headers : {
-                    "Custom-Header": "value",
-                }
-            }).then(res => { 
-                setMessage2(res.data);
-            }).catch(err =>{ 
-                setError2("Upload failed")
-                console.log(err);
-            });
+                await axios.post('http://10.0.105.140:5002/Gate/anomalie', fd, {
+                    headers : {
+                        "Custom-Header": "value",
+                    }
+                }).then(res => { 
+                    setMessage2(res.data);
+                }).catch(err =>{ 
+                    setError2("Upload failed")
+                    console.log(err);
+                });
+            } catch (error) {
+                console.log(error)
+            }finally{
+                setLoadingAnomalie(false);
+            }
         }
     }
 
@@ -91,10 +109,16 @@ function AdminImport(){
                             </div>
                         </label>
 
-                        <button className='bg-teal-600 p-2 rounded-lg text-white border hover:border-teal-600 hover:bg-white hover:text-teal-600 transition' type="submit" 
+                        <button className='bg-teal-600 p-2 rounded-lg text-white border hover:border-teal-600 hover:bg-white hover:text-teal-600 transition flex gap-4 items-center justify-center' type="submit" 
                             onClick={ submitGateOperation }
                         >
                             Submit
+                            {
+                                (loadingBarriere) ? 
+                                    <PulseLoader size={10} />
+                                    :
+                                    null
+                            }
                         </button>
                         <div>
                             { 
@@ -127,10 +151,16 @@ function AdminImport(){
                             </div>
                         </label>
 
-                        <button className='bg-teal-600 p-2 rounded-lg text-white border hover:border-teal-600 hover:bg-white hover:text-teal-600 transition' type="submit" 
+                        <button className='bg-teal-600 p-2 rounded-lg text-white border hover:border-teal-600 hover:bg-white hover:text-teal-600 transition flex gap-4 items-center justify-center' type="submit" 
                             onClick={ submitAnomalie }
                         >
                             Submit
+                            {
+                                (loadingAnomalie) ? 
+                                    <PulseLoader size={10} />
+                                    :
+                                    null
+                            }
                         </button>
                         <div>
                             {   

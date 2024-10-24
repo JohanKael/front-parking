@@ -20,8 +20,8 @@ export const loginAdmin = async (email: string, password: string) => {
     const BASE_URL = 'http://10.0.105.140:5002/Auth';
     try {
         const response = await axios.post(`${BASE_URL}`, {
-        emailUser: email,
-        mdpUser: password
+            emailUser: email,
+            mdpUser: password
         });
         return response.data;
     } catch (error) {
