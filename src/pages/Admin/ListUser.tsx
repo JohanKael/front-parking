@@ -150,6 +150,7 @@ function ListUser() {
             {/* Pagination */}
             <div className="flex flex-col md:flex-row justify-end items-center mt-4 gap-10">
                 <div>
+                    page: &nbsp;
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index + 1}
