@@ -154,21 +154,56 @@ function Ocr(){
 
     const [confirmation, setConfirmation] = useState<boolean>(false);
 
+
+    //Const qui recevra le logFile
+    const [logFile, setLogFile] = useState<File | null>(null);
+    // Fonction qui insert les fichiers log
+    const handleLogFile = async () => {
+        console.log(logFile);
+    }
+
     return (
         <LayoutAdmin>
             <div className="flex flex-col gap-10">
-                <div className="w-full flex justify-center items-center">
-                    <input
-                        type="file"
-                        id="file-upload"
-                        accept="image/*"
-                        multiple
-                        className="hidden"
-                        onChange={handleImage}
-                    />
-                    <label htmlFor="file-upload" className="text-black cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full h-40 md:h-[15rem] flex justify-center items-center px-6 md:px-0">
-                        Importez toutes les photos du journal 📸
-                    </label>
+                <div className="grid grid-cols-3 gap-2">
+                    <div className="col-span-2 w-full flex justify-center items-center">
+                        <input
+                            type="file"
+                            id="file-upload"
+                            accept="image/*"
+                            multiple
+                            className="hidden"
+                            onChange={handleImage}
+                        />
+                        <label htmlFor="file-upload" className="text-black cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full h-40 md:h-[15rem] flex justify-center items-center px-6 md:px-0">
+                            Importez toutes les photos du journal 📸
+                        </label>
+                    </div>
+                    <div className="col-pan-1 w-full flex justify-center items-center gap-4">
+                        <div className="">
+                            <input
+                                type="file"
+                                id="log-upload"
+                                accept=".log"
+                                className="hidden"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                        setLogFile(file);
+                                    }
+                                }}
+                            />
+                            <label htmlFor="log-upload" className="text-black p-10 cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full h-40 md:h-[15rem] flex justify-center items-center md:px-0">
+                                Importez les données .log ici
+                            </label>
+                        </div>
+                        <button
+                            onClick={handleLogFile}
+                            className="border bg-black text-white p-4 rounded-xl"
+                        >
+                            Submit log file
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
