@@ -21,36 +21,36 @@ function Ocr(){
     const [showTotaux,  setShowTotaux] = useState<boolean>(false);
 
 
-    const handleImage = async (event: { target: { files: FileList | null } }) => {
-        const selectedFiles = event.target.files;
-        if (selectedFiles) {
-            const filesArray = Array.from(selectedFiles);
-            // Conserve les anciennes images et ajoute les nouvelles
-            setSelectedImages(prevImages => [...prevImages, ...filesArray]);
+        const handleImage = async (event: { target: { files: FileList | null } }) => {
+            const selectedFiles = event.target.files;
+            if (selectedFiles) {
+                const filesArray = Array.from(selectedFiles);
+                // Conserve les anciennes images et ajoute les nouvelles
+                setSelectedImages(prevImages => [...prevImages, ...filesArray]);
 
-            const formData = new FormData();
-            filesArray.forEach(file => {
-                formData.append('files', file);
-            });
-
-            try {
-                setLoading(true);
-                const response = await axios.post('http://10.0.105.140:5000/upload-images/', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+                const formData = new FormData();
+                filesArray.forEach(file => {
+                    formData.append('files', file);
                 });
-                console.log('Réponse de l\'API:', response.data);
-                // Ajoute les données d'images reçues à l'état
-                setImageData(prevData => [...prevData, ...response.data]);
-                setShowTotaux(true);
-            } catch (error) {
-                console.error('Erreur lors de l\'upload des images:', error);
-            }finally{
-                setLoading(false);
+
+                try {
+                    setLoading(true);
+                    const response = await axios.post('http://10.0.105.140:5000/upload-images/', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    });
+                    console.log('Réponse de l\'API:', response.data);
+                    // Ajoute les données d'images reçues à l'état
+                    setImageData(prevData => [...prevData, ...response.data]);
+                    setShowTotaux(true);
+                } catch (error) {
+                    console.error('Erreur lors de l\'upload des images:', error);
+                }finally{
+                    setLoading(false);
+                }
             }
-        }
-    };
+        };
 
     const handleImageClick = (image: File) => {
         setPreviewImage(URL.createObjectURL(image)); // Ouvre la prévisualisation de l'image
@@ -106,7 +106,7 @@ function Ocr(){
     const [editablePriceCounts, setEditablePriceCounts] = useState<{ [key: number]: number }>({});
 
     // Définir les prix fixes
-    const fixedPrices: number[] = [1500, 2800, 4400, 22500, 45000];
+    const fixedPrices: number[] = [1300, 1500, 1600, 2800, 4400, 21000, 22500, 45000];
 
     // Initialiser editablePriceCounts avec totalPriceCount au premier rendu
     useEffect(() => {
@@ -155,18 +155,41 @@ function Ocr(){
     const [confirmation, setConfirmation] = useState<boolean>(false);
 
 
-    //Const qui recevra le logFile
+    {/* Section pour l'import de fichier log */}
     const [logFile, setLogFile] = useState<File | null>(null);
-    // Fonction qui insert les fichiers log
-    const handleLogFile = async () => {
-        console.log(logFile);
+    const [errorLog, setErrorLog] = useState<string | null>(null);
+    const [messageLog, setMessageLog] = useState<string | null>(null);
+
+    const insertLogFile = async () => {
+        if(logFile == null){
+            setErrorLog("Veuillez sélectionner un fichier log");
+        }
+
+        const formData = new FormData();
+        formData.append('logFile', logFile!);
+
+        try {
+            setLoading(true);
+            const response = await axios.post('http://10.0.105.140:5002/Vente/insert/log', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            if(response){
+                setMessageLog(response.data);
+            }
+        } catch (err) {
+            setError('Erreur lors de l\'upload du fichier.');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
         <LayoutAdmin>
-            <div className="flex flex-col gap-10">
-                <div className="grid grid-cols-3 gap-2">
-                    <div className="col-span-2 w-full flex justify-center items-center">
+            <div className="flex flex-col">
+                <div className="grid grid-cols-4 gap-8">
+                    <div className="col-span-3 w-full flex justify-center items-center">
                         <input
                             type="file"
                             id="file-upload"
@@ -175,33 +198,54 @@ function Ocr(){
                             className="hidden"
                             onChange={handleImage}
                         />
-                        <label htmlFor="file-upload" className="text-black cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full h-40 md:h-[15rem] flex justify-center items-center px-6 md:px-0">
+                        <label htmlFor="file-upload" className="text-black h-full cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full md:h-[15rem] flex justify-center items-center px-6 md:px-0">
                             Importez toutes les photos du journal 📸
                         </label>
                     </div>
-                    <div className="col-pan-1 w-full flex justify-center items-center gap-4">
-                        <div className="">
+                    <div className="col-span-1 flex flex-col gap-4 justify-center items-center">
+                        <div className="w-full flex justify-center h-full">
                             <input
                                 type="file"
                                 id="log-upload"
                                 accept=".log"
                                 className="hidden"
-                                onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        setLogFile(file);
+                                onChange={
+                                    (event) => {
+                                        const logFile = event.target.files![0];
+                                        if(logFile){
+                                            setLogFile(logFile);
+                                        }
+                                        setErrorLog(null);
+                                        setMessageLog(null);
                                     }
-                                }}
+                                }
                             />
-                            <label htmlFor="log-upload" className="text-black p-10 cursor-pointer border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition text-xl rounded-2xl w-96 md:w-full h-40 md:h-[15rem] flex justify-center items-center md:px-0">
-                                Importez les données .log ici
+                            <label htmlFor="log-upload" className="font-semibold rounded-xl border-2 border-dashed border-neutral-300 hover:border-neutral-400 transition w-full flex items-center justify-center">
+                                {
+                                    (logFile) ? 
+                                    logFile.name
+                                    :
+                                    "Importer le fichier log"
+                                }
                             </label>
                         </div>
+                        {
+                            (errorLog) ? 
+                                <p className="text-red-500">{ errorLog }</p>
+                            :
+                                ""
+                        }
+                        {
+                            (messageLog) ? 
+                                <p className="text-lime-500">{ messageLog }</p>
+                            :
+                                ""
+                        }
                         <button
-                            onClick={handleLogFile}
-                            className="border bg-black text-white p-4 rounded-xl"
+                            className="bg-emerald-500 hover:bg-emerald-600 transition text-white px-6 py-2 rounded-xl w-36"
+                            onClick={insertLogFile}
                         >
-                            Submit log file
+                            Insérer
                         </button>
                     </div>
                 </div>
@@ -210,7 +254,7 @@ function Ocr(){
                     <div className="col-span-2">
                         {   
                             loading ? (
-                                <div className="w-full h-full flex justify-center items-center">
+                                <div className="w-full h-full flex justify-center items-center mt-8">
                                     <PulseLoader 
                                         color="rgb(63 63 70)"
                                     />

@@ -94,6 +94,12 @@ function LayoutAdmin({ children } : LayoutProps) {
                                 <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
                             </div>
                         </Link>
+                        <Link to='/admin/paie'>
+                            <div className='flex md:justify-center xl:justify-start font-thin bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl mb-1 hover:tracking-wider transition-all hover:shadow-md'>
+                                <PaidIcon />
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement OCR</p>
+                            </div>
+                        </Link>
                         <Link to='/admin/gate'>
                             <div className='flex md:justify-center xl:justify-start font-thin bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl mb-1 hover:tracking-wider transition-all hover:shadow-md'>
                                 <AnalyticsIcon /> 

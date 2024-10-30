@@ -12,6 +12,8 @@ import Ocr from './pages/Admin/Ocr.tsx';
 import AdminPaie from './pages/Admin/AdminPaie.tsx';
 import Paie from './pages/User/Paie.tsx';
 import Gate from './pages/User/Gate.tsx';
+import AdminPaieLog from './pages/Admin/AdminPaieLog.tsx';
+import PaieLog from './pages/User/PaieLog.tsx';
 
 function App() {
 
@@ -28,9 +30,11 @@ function App() {
           <Route path="/admin/import" element={<AdminImport />} />
           <Route path="/admin/gate" element={<FilterGate />} />
           <Route path="/admin/ocr" element={<Ocr />} />
-          <Route path="/admin/home" element={<AdminPaie />} />
+          <Route path="/admin/home" element={<AdminPaieLog />} />
+          <Route path="/admin/paie" element={<AdminPaie />} />
           <Route path="/admin/list" element={<ListUser />} />
-          <Route path="/home" element={<Paie />} />
+          <Route path="/home" element={<PaieLog />} />
+          <Route path="/paie" element={<Paie />} />
           <Route path="/gate" element={<Gate />} />
         </Routes>
       </BrowserRouter>

@@ -91,6 +91,12 @@ function Layout({ children } : LayoutProps) {
                                 <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
                             </div>
                         </Link>
+                        <Link to='/paie'>
+                            <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
+                                <h2 className='font-bold'>MGA</h2>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement OCR</p>
+                            </div>
+                        </Link>
                         <Link to='/gate'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <AnalyticsIcon /> 
