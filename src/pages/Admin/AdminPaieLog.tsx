@@ -5,7 +5,6 @@ import axios from "axios";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, LineElement, PointElement } from 'chart.js';
 import { Doughnut, Line } from "react-chartjs-2";
 import PulseLoader from "react-spinners/PulseLoader";
-import { GateOperation } from "./FilterGate";
 
 // Enregistrement des composants nécessaires pour le graphique
 ChartJS.register(
@@ -163,25 +162,6 @@ function AdminPaieLog(){
         }
     }
 
-    
-    const [ totalGateOperation, setTotalGateOperation ] = useState<GateOperation>();
-
-    //Fonction qui prend les sorties et les entrées de la date selectionnée
-    const getGateOperation = async (dateOne : string , dateTwo : string) => {
-        try {
-            const url_to_get = "http://10.0.105.140:5002/Gate/filter";
-            const response = await axios.get(url_to_get, {
-                params:{
-                    dateFrom : dateOne,
-                    dateTo : dateTwo
-                }
-            });
-            setTotalGateOperation(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
 
     useEffect(() => {
 
@@ -197,7 +177,6 @@ function AdminPaieLog(){
         setDate(dateForInput);
         setDateFin(dateTwoForInput);
 
-        getGateOperation(dateForInput, dateTwoForInput);
         getPaiementEntreDate(dateForInput, dateTwoForInput);
         getDetailPaiement(dateForInput, dateTwoForInput);
         getMonthPaiement(dateForInput);
@@ -219,7 +198,6 @@ function AdminPaieLog(){
         setDate(dateForInput);
         setDateFin(dateTwoForInput);
 
-        getGateOperation(dateForInput, dateTwoForInput);
         getPaiementEntreDate(dateForInput, dateTwoForInput);
         getDetailPaiement(dateForInput, dateTwoForInput);
         getMonthPaiement(dateForInput);
@@ -315,9 +293,6 @@ function AdminPaieLog(){
         },
     };
 
-    // nombre total des prix durant la journée
-    const totalNombrePrix = detailYesterday.reduce((acc, detail) => acc + detail.nombrePrix, 0);
-
     const groupedDetails = detailYesterday.reduce<{ [key: number]: { id: number; prix: number; nombrePrix: number } }>((acc, detail) => {
         if (!acc[detail.prix]) {
             acc[detail.prix] = {
@@ -403,8 +378,8 @@ function AdminPaieLog(){
                                 <p className="text-2xl font-bold text-neutral-400">Détails date selectionné</p>
                                 <div>
                                     {
-                                        uniqueDetails.map((detail) => (
-                                            <div key={detail.id}>
+                                        uniqueDetails.map((detail, index) => (
+                                            <div key={index}>
                                                 <span className="flex">
                                                     <p>{formatNumber(detail.prix)} Ar : &nbsp;</p>
                                                     <p className="text-green-700">{detail.nombrePrix}</p>

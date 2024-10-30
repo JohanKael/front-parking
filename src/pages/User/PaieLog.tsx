@@ -379,8 +379,8 @@ function PaieLog(){
                                 <p className="text-2xl font-bold text-neutral-400">Détails date selectionné</p>
                                 <div>
                                     {
-                                        uniqueDetails.map((detail) => (
-                                            <div key={detail.id}>
+                                        uniqueDetails.map((detail, index) => (
+                                            <div key={index}>
                                                 <span className="flex">
                                                     <p>{formatNumber(detail.prix)} Ar : &nbsp;</p>
                                                     <p className="text-green-700">{detail.nombrePrix}</p>
