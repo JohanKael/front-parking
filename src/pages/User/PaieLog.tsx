@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import LayoutAdmin from "../Component/LayoutAdmin";
 import { formatNumber, getMonthName } from "../../Function/Function";
 import axios from "axios";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, LineElement, PointElement } from 'chart.js';
