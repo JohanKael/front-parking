@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import axios from 'axios';
 import PaidIcon from '@mui/icons-material/Paid';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 interface LayoutProps{
     children : React.ReactNode;
@@ -88,6 +89,12 @@ function LayoutAdmin({ children } : LayoutProps) {
                     </div>
                     <div className='bg-white w-full flex flex-col px-2 rounded-3xl py-2 gap-1 shadow-lg'>
                         <h2 className='text-2xl font-semibold ml-2 text-neutral-400'>Liens</h2>
+                        <Link to='/admin/comparatif'>
+                            <div className='flex md:justify-center xl:justify-start font-thin bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl mb-1 hover:tracking-wider transition-all hover:shadow-md'>
+                                <CurrencyExchangeIcon />
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
+                            </div>
+                        </Link>
                         <Link to='/admin/home'>
                             <div className='flex md:justify-center xl:justify-start font-thin bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl mb-1 hover:tracking-wider transition-all hover:shadow-md'>
                                 <PaidIcon />

@@ -14,6 +14,11 @@ export const formatDate = (dateString: string) => {
     return date.toLocaleString('fr-FR', options);
 };
 
+// Fonction de conversion
+export function convertToDateInputFormat(dateString: string) {
+    const [datePart] = dateString.split('T');
+    return datePart;
+}
 
 // Convertir la date time du front en datetime pour le back
 export const dateTimeFormat = (dateString : string) => {

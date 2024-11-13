@@ -190,9 +190,9 @@ function ListUser() {
                             <td className='p-3'>{formatDate(user.dateDemande)}</td>
                             <td className='p-3'>
                                 {user.isActive ?
-                                    <p className="text-green-600 flex gap-2 items-center"><PuffLoader color="" size={20} />actif</p>
+                                    <p className="text-green-600 flex gap-2 items-center"><PuffLoader color="" size={20} />en ligne</p>
                                     :
-                                    <p className="flex gap-2 items-center"><FiberManualRecordIcon sx={{ fontSize: 15 }} />non actif</p>
+                                    <p className="flex gap-2 items-center"><FiberManualRecordIcon sx={{ fontSize: 15 }} />déconnecté</p>
                                 }
                             </td>
                             <td className="pl-4 md:pl-20">

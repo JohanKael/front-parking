@@ -275,7 +275,7 @@ function AdminHome(){
                         </div>
 
                         <div className='col-span-1 border border-neutral-300 rounded-3xl p-8'>
-                            <p className='font-semibold text-2xl text-neutral-300 mb-6'>Liste des utilisateurs actifs</p>
+                            <p className='font-semibold text-2xl text-neutral-300 mb-6'>Liste des utilisateurs en ligne</p>
                             {
                                 activeUsers?.map((user, index) => (
                                     <div key={ index } className='flex items-center justify-between gap-20 border-b border-neutral-200 py-2 px-4'>
@@ -283,7 +283,7 @@ function AdminHome(){
                                             <p className='text-lg font-semibold' >{ user.nomUser }</p>
                                             <p className='text-sm' >{ user.emailUser }</p>
                                         </div>
-                                        <p className='bg-green-400 bg-opacity-30 text-green-600 px-3 rounded-full text-sm'>actif</p>
+                                        <p className='bg-green-400 bg-opacity-30 text-green-600 px-3 rounded-full text-sm'>en ligne</p>
                                     </div>
                                 ))
                             }
