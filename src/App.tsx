@@ -15,6 +15,7 @@ import Gate from './pages/User/Gate.tsx';
 import AdminPaieLog from './pages/Admin/AdminPaieLog.tsx';
 import PaieLog from './pages/User/PaieLog.tsx';
 import AdminComparatif from './pages/Admin/AdminComparatif.tsx';
+import Comparatif from './pages/User/Comparatif.tsx';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/admin/paie" element={<AdminPaie />} />
           <Route path="/admin/list" element={<ListUser />} />
           <Route path="/admin/comparatif" element={<AdminComparatif />} />
+          <Route path="/comparatif" element={<Comparatif />} />
           <Route path="/home" element={<PaieLog />} />
           <Route path="/paie" element={<Paie />} />
           <Route path="/gate" element={<Gate />} />
