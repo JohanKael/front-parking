@@ -92,7 +92,7 @@ function LayoutAdmin({ children } : LayoutProps) {
                         <Link to='/admin/comparatif'>
                             <div className='flex md:justify-center xl:justify-start font-thin bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl mb-1 hover:tracking-wider transition-all hover:shadow-md'>
                                 <CurrencyExchangeIcon />
-                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Comparatif caisse et revenues</p>
                             </div>
                         </Link>
                         <Link to='/admin/home'>

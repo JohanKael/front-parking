@@ -89,7 +89,7 @@ function Layout({ children } : LayoutProps) {
                         <Link to='/comparatif'>
                             <div className='flex md:justify-center xl:justify-start text-white font-thin bg-white bg-opacity-0 pl-2 py-2 xl:px-4 rounded-xl hover:bg-opacity-30 transition mb-1'>
                                 <CurrencyExchangeIcon />
-                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Statistiques paiement</p>
+                                <p className='md:hidden xl:block'>&nbsp;&nbsp;&nbsp;Comparatif caisse et revenues</p>
                             </div>
                         </Link>
                         <Link to='/home'>
